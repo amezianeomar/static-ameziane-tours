@@ -58,21 +58,6 @@ Since this is a static single-page application built with standard HTML/CSS/JS, 
 
 ---
 
-## 🌐 Deployment
-
-This project is beautifully configured for instant deployment to platforms like **Vercel** or **GitHub Pages**. 
-
-### Deploying to Vercel (Recommended)
-
-1. Connect your GitHub repository to [Vercel](https://vercel.com/).
-2. Select the `static-ameziane-tours` repository.
-3. Vercel will automatically detect the static project type. 
-4. Click **Deploy**.
-
-*No complex build commands or output directories need to be configured.*
-
----
-
 ## 📁 File Structure
 
 ```text
