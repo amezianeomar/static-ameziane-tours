@@ -56,6 +56,41 @@
         .display-font {
             font-family: 'Merriweather', serif;
         }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .hero-anim {
+            opacity: 0;
+            animation: fadeInUp 0.8s ease-out forwards;
+        }
+
+        @keyframes marquee {
+            0% { transform: translateX(0); }
+            100% { transform: translateX(calc(-50% - 1rem)); } 
+            /* 1rem accounts for half the total gap offset if needed, or strictly -50% for flex gap */
+        }
+        
+        @tailwind utilities;
+
+        @layer utilities {
+            .animate-marquee {
+                animation: marquee 40s linear infinite;
+                display: flex;
+                width: max-content;
+            }
+            .animate-marquee:hover {
+                animation-play-state: paused;
+            }
+        }
     </style>
 </head>
 
@@ -75,15 +110,16 @@
                 </div>
 
                 <!-- Desktop Menu -->
-                <div class="hidden md:flex space-x-10">
+                <div class="hidden md:flex space-x-8 items-center">
                     <a href="#home"
                         class="text-dark hover:text-primary transition-colors duration-300 font-medium text-sm tracking-wide uppercase">Home</a>
-                    <a href="#about"
-                        class="text-dark hover:text-primary transition-colors duration-300 font-medium text-sm tracking-wide uppercase">About</a>
-                    <a href="#experiences"
+                    <a href="about.html"
+                        class="text-dark hover:text-primary transition-colors duration-300 font-medium text-sm tracking-wide uppercase">About & Fleet</a>
+                    <a href="experiences.html"
                         class="text-dark hover:text-primary transition-colors duration-300 font-medium text-sm tracking-wide uppercase">Experiences</a>
-                    <a href="#contact"
+                    <a href="index.html#contact"
                         class="text-dark hover:text-primary transition-colors duration-300 font-medium text-sm tracking-wide uppercase">Contact</a>
+                    <a href="order.html" class="bg-primary hover:bg-primaryHover text-white px-6 py-2.5 rounded-full font-bold text-sm tracking-wider uppercase transition-all shadow-[0_4px_14px_0_rgba(184,134,11,0.39)] hover:shadow-[0_6px_20px_rgba(184,134,11,0.23)] hover:-translate-y-0.5">Book Now</a>
                 </div>
 
                 <!-- Mobile Menu Button -->
@@ -102,12 +138,14 @@
             <div class="px-4 pt-4 pb-8 space-y-1">
                 <a href="#home"
                     class="block px-4 py-3 text-base font-semibold text-dark hover:text-primary hover:bg-stone-50 rounded-lg transition-colors mobile-link uppercase tracking-wider">Home</a>
-                <a href="#about"
-                    class="block px-4 py-3 text-base font-semibold text-dark hover:text-primary hover:bg-stone-50 rounded-lg transition-colors mobile-link uppercase tracking-wider">About</a>
-                <a href="#experiences"
+                <a href="about.html"
+                    class="block px-4 py-3 text-base font-semibold text-dark hover:text-primary hover:bg-stone-50 rounded-lg transition-colors mobile-link uppercase tracking-wider">About & Fleet</a>
+                <a href="experiences.html"
                     class="block px-4 py-3 text-base font-semibold text-dark hover:text-primary hover:bg-stone-50 rounded-lg transition-colors mobile-link uppercase tracking-wider">Experiences</a>
-                <a href="#contact"
+                <a href="index.html#contact"
                     class="block px-4 py-3 text-base font-semibold text-dark hover:text-primary hover:bg-stone-50 rounded-lg transition-colors mobile-link uppercase tracking-wider">Contact</a>
+                <a href="order.html"
+                    class="block px-4 py-3 mt-4 text-base font-bold text-white bg-primary hover:bg-primaryHover text-center rounded-lg transition-colors uppercase tracking-wider mobile-link mx-2">Book Now</a>
             </div>
         </div>
     </nav>
@@ -125,24 +163,28 @@
         <!-- Hero Content -->
         <div class="relative z-10 text-center px-4 max-w-5xl mx-auto mt-16">
             <span
-                class="block text-primary font-bold tracking-[0.2em] uppercase mb-4 text-sm md:text-base drop-shadow-md">Premium
+                class="hero-anim block text-primary font-bold tracking-[0.2em] uppercase mb-4 text-sm md:text-base drop-shadow-md"
+                style="animation-delay: 0.1s;">Premium
                 Travel Experiences</span>
             <h1
-                class="display-font text-5xl md:text-7xl lg:text-8xl font-bold text-white mb-6 leading-tight drop-shadow-lg">
+                class="hero-anim display-font text-5xl md:text-7xl lg:text-8xl font-bold text-white mb-6 leading-tight drop-shadow-lg"
+                style="animation-delay: 0.3s;">
                 Discover the Magic of <span class="text-primary">Morocco</span>
             </h1>
-            <p class="text-lg md:text-2xl text-gray-200 mb-10 max-w-3xl mx-auto font-light leading-relaxed">
+            <p class="hero-anim text-lg md:text-2xl text-gray-200 mb-10 max-w-3xl mx-auto font-light leading-relaxed"
+                style="animation-delay: 0.5s;">
                 Immerse yourself in vibrant cultures, breathtaking landscapes, and unforgettable guided journeys crafted
                 by local experts.
             </p>
-            <a href="#experiences"
-                class="inline-block bg-primary hover:bg-primaryHover text-white text-lg font-semibold px-10 py-4 rounded-full transition-all duration-300 transform hover:-translate-y-1 hover:shadow-xl hover:shadow-primary/30">
+            <a href="experiences.html"
+                class="hero-anim inline-block bg-primary hover:bg-primaryHover text-white text-lg font-semibold px-10 py-4 rounded-full transition-all duration-300 transform hover:-translate-y-1 hover:shadow-xl hover:shadow-primary/30"
+                style="animation-delay: 0.7s;">
                 Explore Our Tours
             </a>
         </div>
 
         <!-- Scroll indicator -->
-        <div class="absolute bottom-10 left-1/2 transform -translate-x-1/2 z-10 animate-bounce">
+        <div class="absolute bottom-10 left-0 right-0 z-10 flex justify-center animate-bounce">
             <a href="#about"
                 class="text-white/60 hover:text-white transition-colors p-4 rounded-full bg-dark/20 backdrop-blur-sm border border-white/10">
                 <i class="fas fa-chevron-down text-xl"></i>
@@ -264,9 +306,7 @@
                     </div>
                     <div class="p-8 flex-grow flex flex-col justify-between">
                         <p class="text-gray-600 mb-8 leading-relaxed">
-                            Experience the profound silence and breathtaking starlit skies of the Sahara. Our luxury
-                            primaryHover camps offer a seamless blend of traditional Berber hospitality and modern
-                            comfort amidst the majestic, golden dunes.
+                            Experience the profound silence and breathtaking starlit skies of the <a href="experiences.html" class="text-primary font-semibold hover:underline transition-colors block-inline">Sahara</a>. Our luxury desert camps offer a seamless blend of traditional Berber hospitality and modern comfort amidst the majestic, golden dunes.
                         </p>
                         <a href="#contact"
                             class="inline-flex items-center font-bold text-dark hover:text-primary transition-colors w-fit border-b-2 border-transparent hover:border-primary pb-1">
@@ -291,9 +331,7 @@
                     </div>
                     <div class="p-8 flex-grow flex flex-col justify-between">
                         <p class="text-gray-600 mb-8 leading-relaxed">
-                            Wander through centuries of history in Marrakech, Fes, Meknes, and Rabat. Our knowledgeable
-                            guides bring the intricate architecture, vibrant souks, and hidden palaces of Morocco's
-                            imperial capitals to life.
+                            Wander through centuries of history in <a href="experiences.html" class="text-primary font-semibold hover:underline transition-colors block-inline">Marrakech</a>, <a href="experiences.html" class="text-primary font-semibold hover:underline transition-colors block-inline">Fes</a>, <a href="experiences.html" class="text-primary font-semibold hover:underline transition-colors block-inline">Meknes</a>, and <a href="experiences.html" class="text-primary font-semibold hover:underline transition-colors block-inline">Rabat</a>. Our knowledgeable guides bring the intricate architecture, vibrant souks, and hidden palaces of Morocco's imperial capitals to life.
                         </p>
                         <a href="#contact"
                             class="inline-flex items-center font-bold text-dark hover:text-primary transition-colors w-fit border-b-2 border-transparent hover:border-primary pb-1">
@@ -307,22 +345,20 @@
                 <div
                     class="bg-white rounded-2xl overflow-hidden shadow-xl shadow-stone-200/50 hover:shadow-2xl hover:shadow-secondary/10 transition-all duration-500 transform hover:-translate-y-3 flex flex-col group border border-stone-100">
                     <div class="relative overflow-hidden h-72">
-                        <img src="images/8ad9cb1597f7b5dad9b2928b2fdef736.webp" alt="Atlas Mountain Treks"
+                        <img src="images/chefchaouen.jpg" alt="Northern Wonders"
                             class="w-full h-full object-cover transition-transform duration-1000 group-hover:scale-110">
                         <div class="absolute inset-0 bg-gradient-to-t from-dark/90 via-dark/20 to-transparent"></div>
                         <div class="absolute bottom-6 left-6 right-6">
                             <span
-                                class="bg-dark text-white text-xs font-bold px-3 py-1 rounded-full tracking-wider uppercase mb-3 inline-block">Nature</span>
-                            <h3 class="display-font text-2xl font-bold text-white">Atlas Mountain Treks</h3>
+                                class="bg-dark text-white text-xs font-bold px-3 py-1 rounded-full tracking-wider uppercase mb-3 inline-block">Nature & History</span>
+                            <h3 class="display-font text-2xl font-bold text-white">Northern Wonders</h3>
                         </div>
                     </div>
                     <div class="p-8 flex-grow flex flex-col justify-between">
                         <p class="text-gray-600 mb-8 leading-relaxed">
-                            Discover the dramatic landscapes and indigenous villages of the High Atlas Mountains.
-                            Whether you seek a gentle valley walk or a challenging summit ascent, our treks connect you
-                            with the region's raw beauty.
+                            Lose yourself in the enchanting blue streets of <a href="experiences.html" class="text-primary font-semibold hover:underline transition-colors block-inline">Chefchaouen</a>, the vibrant coastal energy of <a href="experiences.html" class="text-primary font-semibold hover:underline transition-colors block-inline">Tangier</a>, and the historic charm of <a href="experiences.html" class="text-primary font-semibold hover:underline transition-colors block-inline">Asilah</a>. A perfect blend of culture and stunning northern landscapes.
                         </p>
-                        <a href="#contact"
+                        <a href="experiences.html"
                             class="inline-flex items-center font-bold text-dark hover:text-primary transition-colors w-fit border-b-2 border-transparent hover:border-primary pb-1">
                             Learn More <i
                                 class="fas fa-long-arrow-alt-right ml-2 group-hover:translate-x-2 transition-transform"></i>
@@ -331,6 +367,135 @@
                 </div>
 
             </div>
+
+            <!-- Global CTA Button -->
+            <div class="mt-20 text-center">
+                <a href="experiences.html"
+                    class="inline-block bg-dark text-white font-bold px-12 py-5 rounded-full transition-all duration-300 hover:bg-primary hover:-translate-y-1 shadow-[0_10px_40px_-10px_rgba(0,0,0,0.3)] hover:shadow-primary/40 text-lg uppercase tracking-wider relative overflow-hidden group">
+                    <span class="relative z-10 flex items-center">
+                        Discover More Experiences
+                        <i class="fas fa-compass ml-3 group-hover:rotate-45 transition-transform duration-300"></i>
+                    </span>
+                    <div class="absolute inset-0 bg-primary opacity-0 group-hover:opacity-100 transition-opacity duration-300 -z-0"></div>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Our Fleet Marquee Section -->
+    <section class="py-20 lg:py-28 bg-stone-50 overflow-hidden border-t border-stone-100 relative">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mb-12 text-center relative z-20">
+            <span class="text-primary font-bold tracking-[0.2em] uppercase mb-4 text-sm inline-block drop-shadow-sm">Premium Transportation</span>
+            <h2 class="display-font text-4xl lg:text-5xl font-bold text-dark">Our Luxury Fleet</h2>
+        </div>
+
+        <div class="relative w-full overflow-hidden flex">
+            <!-- Fade gradients for edges -->
+            <div class="absolute left-0 top-0 bottom-0 w-16 md:w-32 bg-gradient-to-r from-stone-50 to-transparent z-10 pointer-events-none"></div>
+            <div class="absolute right-0 top-0 bottom-0 w-16 md:w-32 bg-gradient-to-l from-stone-50 to-transparent z-10 pointer-events-none"></div>
+
+            <!-- Scroll Container: The animation moves it -50% to perfectly loop the two identical halves -->
+            <div class="animate-marquee gap-8 px-4">
+                
+                <!-- Set 1 (Original) -->
+                <div class="group relative w-72 md:w-96 h-64 rounded-2xl overflow-hidden shadow-lg border border-stone-200 flex-shrink-0 cursor-pointer">
+                    <img src="images/premium_sedans.png" alt="Premium Sedans" class="w-full h-full object-cover transition-transform duration-1000 group-hover:scale-110">
+                    <div class="absolute inset-0 bg-gradient-to-t from-dark/90 via-dark/20 to-transparent transition-opacity duration-500 opacity-80 group-hover:opacity-100"></div>
+                    <div class="absolute bottom-6 left-6 right-6 transform transition-transform duration-500 group-hover:-translate-y-2">
+                        <h3 class="display-font text-xl md:text-2xl font-bold text-white mb-2">Premium Sedans</h3>
+                        <p class="text-primary text-xs font-bold tracking-wider uppercase opacity-0 group-hover:opacity-100 transition-opacity duration-500">View Categories</p>
+                    </div>
+                </div>
+
+                <div class="group relative w-72 md:w-96 h-64 rounded-2xl overflow-hidden shadow-lg border border-stone-200 flex-shrink-0 cursor-pointer">
+                    <img src="images/premium_4x4.png" alt="Premium 4x4" class="w-full h-full object-cover transition-transform duration-1000 group-hover:scale-110">
+                    <div class="absolute inset-0 bg-gradient-to-t from-dark/90 via-dark/20 to-transparent transition-opacity duration-500 opacity-80 group-hover:opacity-100"></div>
+                    <div class="absolute bottom-6 left-6 right-6 transform transition-transform duration-500 group-hover:-translate-y-2">
+                        <h3 class="display-font text-xl md:text-2xl font-bold text-white mb-2">Premium 4x4</h3>
+                        <p class="text-primary text-xs font-bold tracking-wider uppercase opacity-0 group-hover:opacity-100 transition-opacity duration-500">View Categories</p>
+                    </div>
+                </div>
+
+                <div class="group relative w-72 md:w-96 h-64 rounded-2xl overflow-hidden shadow-lg border border-stone-200 flex-shrink-0 cursor-pointer">
+                    <img src="images/luxury_minivans.png" alt="Luxury Minivans" class="w-full h-full object-cover transition-transform duration-1000 group-hover:scale-110">
+                    <div class="absolute inset-0 bg-gradient-to-t from-dark/90 via-dark/20 to-transparent transition-opacity duration-500 opacity-80 group-hover:opacity-100"></div>
+                    <div class="absolute bottom-6 left-6 right-6 transform transition-transform duration-500 group-hover:-translate-y-2">
+                        <h3 class="display-font text-xl md:text-2xl font-bold text-white mb-2">Luxury Minivans</h3>
+                        <p class="text-primary text-xs font-bold tracking-wider uppercase opacity-0 group-hover:opacity-100 transition-opacity duration-500">View Categories</p>
+                    </div>
+                </div>
+
+                <div class="group relative w-72 md:w-96 h-64 rounded-2xl overflow-hidden shadow-lg border border-stone-200 flex-shrink-0 cursor-pointer">
+                    <img src="images/minibuses.png" alt="Minibuses" class="w-full h-full object-cover transition-transform duration-1000 group-hover:scale-110">
+                    <div class="absolute inset-0 bg-gradient-to-t from-dark/90 via-dark/20 to-transparent transition-opacity duration-500 opacity-80 group-hover:opacity-100"></div>
+                    <div class="absolute bottom-6 left-6 right-6 transform transition-transform duration-500 group-hover:-translate-y-2">
+                        <h3 class="display-font text-xl md:text-2xl font-bold text-white mb-2">Minibuses</h3>
+                        <p class="text-primary text-xs font-bold tracking-wider uppercase opacity-0 group-hover:opacity-100 transition-opacity duration-500">View Categories</p>
+                    </div>
+                </div>
+
+                <div class="group relative w-72 md:w-96 h-64 rounded-2xl overflow-hidden shadow-lg border border-stone-200 flex-shrink-0 cursor-pointer">
+                    <img src="images/large_coaches.png" alt="Large Coaches" class="w-full h-full object-cover transition-transform duration-1000 group-hover:scale-110">
+                    <div class="absolute inset-0 bg-gradient-to-t from-dark/90 via-dark/20 to-transparent transition-opacity duration-500 opacity-80 group-hover:opacity-100"></div>
+                    <div class="absolute bottom-6 left-6 right-6 transform transition-transform duration-500 group-hover:-translate-y-2">
+                        <h3 class="display-font text-xl md:text-2xl font-bold text-white mb-2">Large Coaches</h3>
+                        <p class="text-primary text-xs font-bold tracking-wider uppercase opacity-0 group-hover:opacity-100 transition-opacity duration-500">View Categories</p>
+                    </div>
+                </div>
+
+                <!-- Set 2 (Duplicate for seamless scroll) -->
+                <div class="group relative w-72 md:w-96 h-64 rounded-2xl overflow-hidden shadow-lg border border-stone-200 flex-shrink-0 cursor-pointer" aria-hidden="true">
+                    <img src="images/premium_sedans.png" alt="" class="w-full h-full object-cover transition-transform duration-1000 group-hover:scale-110">
+                    <div class="absolute inset-0 bg-gradient-to-t from-dark/90 via-dark/20 to-transparent transition-opacity duration-500 opacity-80 group-hover:opacity-100"></div>
+                    <div class="absolute bottom-6 left-6 right-6 transform transition-transform duration-500 group-hover:-translate-y-2">
+                        <h3 class="display-font text-xl md:text-2xl font-bold text-white mb-2">Premium Sedans</h3>
+                        <p class="text-primary text-xs font-bold tracking-wider uppercase opacity-0 group-hover:opacity-100 transition-opacity duration-500">View Categories</p>
+                    </div>
+                </div>
+
+                <div class="group relative w-72 md:w-96 h-64 rounded-2xl overflow-hidden shadow-lg border border-stone-200 flex-shrink-0 cursor-pointer" aria-hidden="true">
+                    <img src="images/premium_4x4.png" alt="" class="w-full h-full object-cover transition-transform duration-1000 group-hover:scale-110">
+                    <div class="absolute inset-0 bg-gradient-to-t from-dark/90 via-dark/20 to-transparent transition-opacity duration-500 opacity-80 group-hover:opacity-100"></div>
+                    <div class="absolute bottom-6 left-6 right-6 transform transition-transform duration-500 group-hover:-translate-y-2">
+                        <h3 class="display-font text-xl md:text-2xl font-bold text-white mb-2">Premium 4x4</h3>
+                        <p class="text-primary text-xs font-bold tracking-wider uppercase opacity-0 group-hover:opacity-100 transition-opacity duration-500">View Categories</p>
+                    </div>
+                </div>
+
+                <div class="group relative w-72 md:w-96 h-64 rounded-2xl overflow-hidden shadow-lg border border-stone-200 flex-shrink-0 cursor-pointer" aria-hidden="true">
+                    <img src="images/luxury_minivans.png" alt="" class="w-full h-full object-cover transition-transform duration-1000 group-hover:scale-110">
+                    <div class="absolute inset-0 bg-gradient-to-t from-dark/90 via-dark/20 to-transparent transition-opacity duration-500 opacity-80 group-hover:opacity-100"></div>
+                    <div class="absolute bottom-6 left-6 right-6 transform transition-transform duration-500 group-hover:-translate-y-2">
+                        <h3 class="display-font text-xl md:text-2xl font-bold text-white mb-2">Luxury Minivans</h3>
+                        <p class="text-primary text-xs font-bold tracking-wider uppercase opacity-0 group-hover:opacity-100 transition-opacity duration-500">View Categories</p>
+                    </div>
+                </div>
+
+                <div class="group relative w-72 md:w-96 h-64 rounded-2xl overflow-hidden shadow-lg border border-stone-200 flex-shrink-0 cursor-pointer" aria-hidden="true">
+                    <img src="images/minibuses.png" alt="" class="w-full h-full object-cover transition-transform duration-1000 group-hover:scale-110">
+                    <div class="absolute inset-0 bg-gradient-to-t from-dark/90 via-dark/20 to-transparent transition-opacity duration-500 opacity-80 group-hover:opacity-100"></div>
+                    <div class="absolute bottom-6 left-6 right-6 transform transition-transform duration-500 group-hover:-translate-y-2">
+                        <h3 class="display-font text-xl md:text-2xl font-bold text-white mb-2">Minibuses</h3>
+                        <p class="text-primary text-xs font-bold tracking-wider uppercase opacity-0 group-hover:opacity-100 transition-opacity duration-500">View Categories</p>
+                    </div>
+                </div>
+
+                <div class="group relative w-72 md:w-96 h-64 rounded-2xl overflow-hidden shadow-lg border border-stone-200 flex-shrink-0 cursor-pointer" aria-hidden="true">
+                    <img src="images/large_coaches.png" alt="" class="w-full h-full object-cover transition-transform duration-1000 group-hover:scale-110">
+                    <div class="absolute inset-0 bg-gradient-to-t from-dark/90 via-dark/20 to-transparent transition-opacity duration-500 opacity-80 group-hover:opacity-100"></div>
+                    <div class="absolute bottom-6 left-6 right-6 transform transition-transform duration-500 group-hover:-translate-y-2">
+                        <h3 class="display-font text-xl md:text-2xl font-bold text-white mb-2">Large Coaches</h3>
+                        <p class="text-primary text-xs font-bold tracking-wider uppercase opacity-0 group-hover:opacity-100 transition-opacity duration-500">View Categories</p>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+        <div class="text-center mt-16 w-full relative z-20">
+            <a href="about.html" class="inline-flex items-center font-bold text-dark hover:text-primary transition-colors border-b-2 border-transparent hover:border-primary pb-1 uppercase tracking-wide text-sm md:text-base">
+                Read About Us & Explore Our Fleet <i class="fas fa-long-arrow-alt-right ml-2 group-hover:translate-x-2 transition-transform"></i>
+            </a>
         </div>
     </section>
 
@@ -520,8 +685,8 @@
                     <ul class="space-y-3">
                         <li><a href="#home" class="hover:text-primary transition-colors flex items-center"><i
                                     class="fas fa-angle-right mr-2 text-xs"></i> Home</a></li>
-                        <li><a href="#about" class="hover:text-primary transition-colors flex items-center"><i
-                                    class="fas fa-angle-right mr-2 text-xs"></i> About Us</a></li>
+                        <li><a href="about.html" class="hover:text-primary transition-colors flex items-center"><i
+                                    class="fas fa-angle-right mr-2 text-xs"></i> About & Fleet</a></li>
                         <li><a href="#experiences" class="hover:text-primary transition-colors flex items-center"><i
                                     class="fas fa-angle-right mr-2 text-xs"></i> Our Tours</a></li>
                         <li><a href="#contact" class="hover:text-primary transition-colors flex items-center"><i

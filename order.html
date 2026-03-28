@@ -1,0 +1,561 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Book Your Journey | AMEZIANE TOURS</title>
+    <link rel="icon" type="image/png" href="images/eagle-logo.png">
+
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <!-- Custom Tailwind Configuration -->
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#b8860b', // gold
+                        primaryHover: '#996515', // darker gold
+                        secondary: '#111111', // black
+                        dark: '#1c1917', // stone-900
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        serif: ['Merriweather', 'serif'],
+                    }
+                }
+            }
+        }
+    </script>
+
+    <!-- Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Merriweather:wght@300;400;700&display=swap" rel="stylesheet">
+    
+    <!-- FontAwesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            margin: 0;
+            padding: 0;
+            overflow: hidden; /* Prevent scrolling for app-like feeel */
+            background-color: #111;
+        }
+
+        .display-font {
+            font-family: 'Merriweather', serif;
+        }
+
+        /* Wizard Animations */
+        .step {
+            position: absolute;
+            inset: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+            opacity: 0;
+            pointer-events: none;
+            transition: all 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+            transform: translateY(20px) scale(0.98);
+        }
+
+        .step.active {
+            opacity: 1;
+            pointer-events: auto;
+            transform: translateY(0) scale(1);
+        }
+
+        .step.completed {
+            transform: translateY(-20px) scale(0.98);
+        }
+
+        /* Glassmorphism Classes */
+        .glass-panel {
+            background: rgba(255, 255, 255, 0.03);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .glass-hover {
+            transition: all 0.3s ease;
+        }
+
+        .glass-hover:hover {
+            background: rgba(255, 255, 255, 0.1);
+            border-color: rgba(184, 134, 11, 0.5);
+            box-shadow: 0 10px 40px -10px rgba(184, 134, 11, 0.2);
+            transform: translateY(-4px);
+        }
+
+        .glass-selected {
+            background: rgba(184, 134, 11, 0.15) !important;
+            border-color: rgba(184, 134, 11, 0.8) !important;
+            box-shadow: 0 0 30px rgba(184, 134, 11, 0.3) !important;
+        }
+
+        /* Custom Inputs */
+        input[type="date"]::-webkit-calendar-picker-indicator {
+            filter: invert(1);
+            cursor: pointer;
+        }
+
+        /* Hide Scrollbar for Carousel */
+        .hide-scroll::-webkit-scrollbar {
+            display: none;
+        }
+        .hide-scroll {
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+        }
+    </style>
+</head>
+
+<body class="text-white relative font-sans w-full h-screen">
+
+    <!-- Deep Immersive Background -->
+    <div class="absolute inset-0 z-0">
+        <img src="images/wizard_bg.png" alt="Moroccan Nights Desert" class="w-full h-full object-cover">
+        <!-- Dark gradient overlay for extreme contrast and mood -->
+        <div class="absolute inset-0 bg-gradient-to-b from-dark/60 via-dark/40 to-dark/90"></div>
+    </div>
+
+    <!-- Minimal Header -->
+    <header class="absolute top-0 w-full z-50 p-6 flex justify-between items-center">
+        <div class="flex items-center gap-3">
+            <img src="images/eagle-logo.png" alt="Logo" class="h-8 md:h-10 opacity-90">
+            <span class="display-font text-xl md:text-2xl font-bold tracking-wider hidden sm:inline-block">AMEZIANE <span class="text-primary">TOURS</span></span>
+        </div>
+        <a href="index.html" class="glass-panel px-5 py-2 md:px-6 md:py-3 rounded-full text-xs md:text-sm font-semibold tracking-wider hover:bg-white/10 transition flex items-center gap-2">
+            BACK TO HOME <i class="fas fa-times"></i>
+        </a>
+    </header>
+
+    <!-- Application Main Container -->
+    <main class="relative z-10 w-full h-full max-w-7xl mx-auto px-4 outline-none overflow-hidden" id="wizard-container">
+
+        <!-- ================= STEP 1: GREETING & TYPE ================= -->
+        <section id="step-1" class="step active">
+            <div class="text-center w-full max-w-5xl px-4">
+                <span class="text-primary font-bold tracking-[0.3em] uppercase mb-4 text-xs md:text-sm block">Step 1 of 4</span>
+                <h1 class="display-font text-4xl md:text-6xl lg:text-7xl font-bold mb-12 md:mb-16 text-white drop-shadow-2xl leading-tight">Where are we heading today?</h1>
+                
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-6 md:gap-8 max-w-4xl mx-auto">
+                    <!-- Option 1 -->
+                    <button class="type-btn glass-panel glass-hover rounded-3xl p-8 md:p-10 text-xl md:text-2xl font-bold flex flex-col items-center justify-center gap-6" data-type="Airport/Port Transfer">
+                        <div class="w-20 h-20 rounded-full bg-primary/20 flex items-center justify-center text-primary group-hover:scale-110 transition-transform">
+                            <i class="fas fa-plane-arrival text-3xl"></i>
+                        </div>
+                        <span>Airport & Port<br>Transfer</span>
+                    </button>
+
+                    <!-- Option 2 -->
+                    <button class="type-btn glass-panel glass-hover rounded-3xl p-8 md:p-10 text-xl md:text-2xl font-bold flex flex-col items-center justify-center gap-6" data-type="Day Trip / Excursion">
+                        <div class="w-20 h-20 rounded-full bg-primary/20 flex items-center justify-center text-primary group-hover:scale-110 transition-transform">
+                            <i class="fas fa-map-marked-alt text-3xl"></i>
+                        </div>
+                        <span>Day Trip &<br>Excursion</span>
+                    </button>
+
+                    <!-- Option 3 -->
+                    <button class="type-btn glass-panel glass-hover rounded-3xl p-8 md:p-10 text-xl md:text-2xl font-bold flex flex-col items-center justify-center gap-6" data-type="Multi-Day Tour">
+                        <div class="w-20 h-20 rounded-full bg-primary/20 flex items-center justify-center text-primary group-hover:scale-110 transition-transform">
+                            <i class="fas fa-route text-3xl"></i>
+                        </div>
+                        <span>Multi-Day<br>Tour</span>
+                    </button>
+                </div>
+            </div>
+        </section>
+
+        <!-- ================= STEP 2: DETAILS ================= -->
+        <section id="step-2" class="step">
+            <div class="w-full max-w-2xl px-4">
+                <span class="text-primary font-bold tracking-[0.3em] uppercase mb-4 text-xs md:text-sm block text-center">Step 2 of 4</span>
+                <h1 class="display-font text-3xl md:text-5xl font-bold mb-8 md:mb-12 text-center text-white drop-shadow-xl leading-tight">Excellent choice.<br>Let's get the details.</h1>
+                
+                <div class="glass-panel rounded-[2rem] p-6 md:p-12 space-y-10 shadow-2xl">
+                    <!-- Name -->
+                    <div>
+                        <label class="block text-primary text-xs md:text-sm font-bold tracking-widest uppercase mb-2">Primary Guest Name</label>
+                        <input type="text" id="input-name" class="w-full bg-transparent border-b border-white/30 text-white text-2xl md:text-3xl py-2 focus:outline-none focus:border-primary transition-colors placeholder-white/20" placeholder="e.g. James Bond" autocomplete="off">
+                    </div>
+
+                    <div class="grid grid-cols-2 gap-8">
+                        <!-- Pax -->
+                        <div>
+                            <label class="block text-primary text-xs md:text-sm font-bold tracking-widest uppercase mb-2">Passengers</label>
+                            <input type="number" id="input-pax" min="1" max="50" value="2" class="w-full bg-transparent border-b border-white/30 text-white text-2xl md:text-3xl py-2 focus:outline-none focus:border-primary transition-colors text-center" autocomplete="off">
+                        </div>
+                        <!-- Date -->
+                        <div>
+                            <label class="block text-primary text-xs md:text-sm font-bold tracking-widest uppercase mb-2">Start Date</label>
+                            <input type="date" id="input-date" class="w-full bg-transparent border-b border-white/30 text-white text-xl md:text-2xl py-2 focus:outline-none focus:border-primary transition-colors [color-scheme:dark]" required>
+                        </div>
+                    </div>
+
+                    <div class="pt-6 flex justify-between items-center">
+                        <button class="text-gray-400 hover:text-white transition font-semibold text-sm tracking-wide btn-back" data-target="1"><i class="fas fa-arrow-left mr-2"></i> BACK</button>
+                        <button id="btn-next-2" class="bg-primary hover:bg-primaryHover text-white font-bold py-4 px-10 rounded-full text-lg shadow-[0_0_20px_rgba(184,134,11,0.3)] transition-all hover:shadow-[0_0_30px_rgba(184,134,11,0.6)] disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:shadow-none items-center flex" disabled>
+                            Continue <i class="fas fa-arrow-right ml-3 text-sm"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ================= STEP 3: GARAGE ================= -->
+        <section id="step-3" class="step items-start md:items-center justify-start md:justify-center pt-24 md:pt-0 overflow-y-auto hide-scroll">
+            <div class="w-full">
+                <div class="text-center px-4 mb-8 md:mb-12">
+                    <span class="text-primary font-bold tracking-[0.3em] uppercase mb-4 text-xs md:text-sm block">Step 3 of 4</span>
+                    <h1 id="dynamic-greeting" class="display-font text-3xl md:text-5xl font-bold text-white drop-shadow-xl leading-tight">Got it, Guest. Let's pick your ride.</h1>
+                </div>
+                
+                <!-- Horizontal scrolling garage -->
+                <div class="flex overflow-x-auto hide-scroll gap-6 pb-6 snap-x snap-mandatory px-4 md:px-[calc(50vw-10rem)] items-center justify-start after:content-[''] after:shrink-0 after:w-4 md:after:w-[calc(50vw-10rem)]" id="vehicle-carousel">
+                    
+                    <!-- Vehicle 1: Sedans -->
+                    <div class="vehicle-card snap-center shrink-0 w-[85vw] md:w-80 glass-panel rounded-[2rem] overflow-hidden cursor-pointer group transition-all duration-300 hover:-translate-y-2 border border-white/10 relative" data-vehicle="Premium Sedans">
+                        <div class="absolute top-4 right-4 w-8 h-8 rounded-full border-2 border-white/30 flex items-center justify-center z-20 check-icon opacity-0 transition-opacity">
+                            <i class="fas fa-check text-primary text-sm"></i>
+                        </div>
+                        <div class="h-48 md:h-56 overflow-hidden relative">
+                            <img src="images/premium_sedans.png" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700">
+                            <div class="absolute inset-0 bg-dark/30 group-hover:bg-dark/10 transition-colors"></div>
+                        </div>
+                        <div class="p-6 md:p-8">
+                            <h3 class="display-font text-2xl font-bold mb-2">Premium Sedans</h3>
+                            <p class="text-sm text-gray-300 mb-6 font-light">Skoda Superb, Mercedes Class E/S</p>
+                            <div class="flex justify-between items-center">
+                                <span class="bg-white/10 px-3 py-1 rounded-full text-xs font-bold tracking-widest uppercase"><i class="fas fa-user mr-2 text-primary"></i>1-3 Pax</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Vehicle 2: 4x4 -->
+                    <div class="vehicle-card snap-center shrink-0 w-[85vw] md:w-80 glass-panel rounded-[2rem] overflow-hidden cursor-pointer group transition-all duration-300 hover:-translate-y-2 border border-white/10 relative" data-vehicle="Luxury 4x4">
+                        <div class="absolute top-4 right-4 w-8 h-8 rounded-full border-2 border-white/30 flex items-center justify-center z-20 check-icon opacity-0 transition-opacity">
+                            <i class="fas fa-check text-primary text-sm"></i>
+                        </div>
+                        <div class="h-48 md:h-56 overflow-hidden relative">
+                            <img src="images/premium_4x4.png" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700">
+                            <div class="absolute inset-0 bg-dark/30 group-hover:bg-dark/10 transition-colors"></div>
+                        </div>
+                        <div class="p-6 md:p-8">
+                            <h3 class="display-font text-2xl font-bold mb-2">Luxury 4x4</h3>
+                            <p class="text-sm text-gray-300 mb-6 font-light">Skoda Kodiaq, Toyota LC ZX</p>
+                            <div class="flex justify-between items-center">
+                                <span class="bg-white/10 px-3 py-1 rounded-full text-xs font-bold tracking-widest uppercase"><i class="fas fa-user mr-2 text-primary"></i>1-4 Pax</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Vehicle 3: Minivans -->
+                    <div class="vehicle-card snap-center shrink-0 w-[85vw] md:w-80 glass-panel rounded-[2rem] overflow-hidden cursor-pointer group transition-all duration-300 hover:-translate-y-2 border border-white/10 relative" data-vehicle="Luxury Minivans">
+                        <div class="absolute top-4 right-4 w-8 h-8 rounded-full border-2 border-white/30 flex items-center justify-center z-20 check-icon opacity-0 transition-opacity">
+                            <i class="fas fa-check text-primary text-sm"></i>
+                        </div>
+                        <div class="h-48 md:h-56 overflow-hidden relative">
+                            <img src="images/luxury_minivans.png" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700">
+                            <div class="absolute inset-0 bg-dark/30 group-hover:bg-dark/10 transition-colors"></div>
+                        </div>
+                        <div class="p-6 md:p-8">
+                            <h3 class="display-font text-2xl font-bold mb-2">Luxury Minivans</h3>
+                            <p class="text-sm text-gray-300 mb-6 font-light">Mercedes Vito, Mercedes V-Class</p>
+                            <div class="flex justify-between items-center">
+                                <span class="bg-white/10 px-3 py-1 rounded-full text-xs font-bold tracking-widest uppercase"><i class="fas fa-user mr-2 text-primary"></i>4-7 Pax</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Vehicle 4: Minibuses -->
+                    <div class="vehicle-card snap-center shrink-0 w-[85vw] md:w-80 glass-panel rounded-[2rem] overflow-hidden cursor-pointer group transition-all duration-300 hover:-translate-y-2 border border-white/10 relative" data-vehicle="Premium Minibuses">
+                        <div class="absolute top-4 right-4 w-8 h-8 rounded-full border-2 border-white/30 flex items-center justify-center z-20 check-icon opacity-0 transition-opacity">
+                            <i class="fas fa-check text-primary text-sm"></i>
+                        </div>
+                        <div class="h-48 md:h-56 overflow-hidden relative">
+                            <img src="images/minibuses.png" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700">
+                            <div class="absolute inset-0 bg-dark/30 group-hover:bg-dark/10 transition-colors"></div>
+                        </div>
+                        <div class="p-6 md:p-8">
+                            <h3 class="display-font text-2xl font-bold mb-2">Premium Minibuses</h3>
+                            <p class="text-sm text-gray-300 mb-6 font-light">Mercedes Sprinter VIP</p>
+                            <div class="flex justify-between items-center">
+                                <span class="bg-white/10 px-3 py-1 rounded-full text-xs font-bold tracking-widest uppercase"><i class="fas fa-user mr-2 text-primary"></i>8-17 Pax</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Vehicle 5: Coaches -->
+                    <div class="vehicle-card snap-center shrink-0 w-[85vw] md:w-80 glass-panel rounded-[2rem] overflow-hidden cursor-pointer group transition-all duration-300 hover:-translate-y-2 border border-white/10 relative" data-vehicle="Large Tourist Coaches">
+                        <div class="absolute top-4 right-4 w-8 h-8 rounded-full border-2 border-white/30 flex items-center justify-center z-20 check-icon opacity-0 transition-opacity">
+                            <i class="fas fa-check text-primary text-sm"></i>
+                        </div>
+                        <div class="h-48 md:h-56 overflow-hidden relative">
+                            <img src="images/large_coaches.png" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700">
+                            <div class="absolute inset-0 bg-dark/30 group-hover:bg-dark/10 transition-colors"></div>
+                        </div>
+                        <div class="p-6 md:p-8">
+                            <h3 class="display-font text-2xl font-bold mb-2">Large Tourist Coaches</h3>
+                            <p class="text-sm text-gray-300 mb-6 font-light">Premium Group Transport</p>
+                            <div class="flex justify-between items-center">
+                                <span class="bg-white/10 px-3 py-1 rounded-full text-xs font-bold tracking-widest uppercase"><i class="fas fa-user mr-2 text-primary"></i>20-50+ Pax</span>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+
+                <div class="mt-8 text-center px-4 flex justify-between items-center max-w-4xl mx-auto">
+                    <button class="text-gray-400 hover:text-white transition font-semibold text-sm tracking-wide btn-back hidden md:inline-block" data-target="2"><i class="fas fa-arrow-left mr-2"></i> BACK</button>
+                    <button class="text-gray-400 hover:text-white transition font-semibold text-sm tracking-wide btn-back md:hidden" data-target="2"><i class="fas fa-arrow-left"></i></button>
+
+                    <button id="btn-next-3" class="opacity-0 pointer-events-none bg-primary hover:bg-primaryHover text-white font-bold py-4 px-8 md:px-12 rounded-full text-base md:text-lg shadow-[0_0_20px_rgba(184,134,11,0.4)] transition-all hover:shadow-[0_0_30px_rgba(184,134,11,0.6)] transform translate-y-4 flex items-center">
+                        Confirm Selection <i class="fas fa-check ml-3"></i>
+                    </button>
+                    <!-- Empty div for flex spacing -->
+                    <div class="w-16 hidden md:block"></div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ================= STEP 4: CHECKOUT ================= -->
+        <section id="step-4" class="step">
+            <div class="w-full max-w-xl px-4">
+                <span class="text-[#25D366] font-bold tracking-[0.3em] uppercase mb-4 text-xs md:text-sm block text-center">Final Step</span>
+                <h1 class="display-font text-4xl md:text-5xl font-bold mb-10 text-center text-white drop-shadow-xl">Trip Summary</h1>
+                
+                <div class="glass-panel rounded-[2rem] p-8 md:p-12 relative overflow-hidden shadow-2xl">
+                    <!-- Top border accent -->
+                    <div class="absolute top-0 left-0 w-full h-2 bg-gradient-to-r from-primary via-[#25D366] to-primary"></div>
+                    
+                    <div class="space-y-6 md:space-y-8">
+                        <div class="flex justify-between items-end border-b border-white/10 pb-4">
+                            <span class="text-gray-400 uppercase text-xs tracking-widest font-bold">Primary Guest</span>
+                            <span id="sum-name" class="font-bold text-xl md:text-2xl display-font text-right">---</span>
+                        </div>
+                        <div class="flex justify-between items-end border-b border-white/10 pb-4">
+                            <span class="text-gray-400 uppercase text-xs tracking-widest font-bold">Service Type</span>
+                            <span id="sum-type" class="font-bold text-lg md:text-xl text-primary text-right">---</span>
+                        </div>
+                        <div class="flex justify-between items-end border-b border-white/10 pb-4">
+                            <span class="text-gray-400 uppercase text-xs tracking-widest font-bold">Vehicle Class</span>
+                            <span id="sum-vehicle" class="font-bold text-lg md:text-xl text-right">---</span>
+                        </div>
+                        <div class="grid grid-cols-2 gap-4 border-b border-white/10 pb-4">
+                            <div>
+                                <span class="text-gray-400 uppercase text-xs tracking-widest font-bold block mb-1">Passengers</span>
+                                <span id="sum-pax" class="font-bold text-lg md:text-xl">---</span>
+                            </div>
+                            <div class="text-right">
+                                <span class="text-gray-400 uppercase text-xs tracking-widest font-bold block mb-1">Start Date</span>
+                                <span id="sum-date" class="font-bold text-lg md:text-xl">---</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="mt-12 space-y-4">
+                        <button id="btn-submit" class="w-full bg-[#25D366] hover:bg-[#128C7E] text-white font-bold py-5 rounded-2xl text-lg shadow-[0_0_30px_rgba(37,211,102,0.3)] transition-all hover:shadow-[0_0_40px_rgba(37,211,102,0.6)] hover:-translate-y-1 flex items-center justify-center gap-3">
+                            <i class="fab fa-whatsapp text-2xl"></i> Send Order via WhatsApp
+                        </button>
+                        <button class="w-full text-center text-sm text-gray-400 hover:text-white transition py-2 font-semibold tracking-wide btn-back" data-target="3">
+                            Wait, I need to make a change
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- Vanilla Javascript Logic -->
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            
+            // --- STATE MANAGEMENT ---
+            let orderData = {
+                type: '',
+                name: '',
+                pax: 2,
+                date: '',
+                vehicle: ''
+            };
+
+            let currentStep = 1;
+            const totalSteps = 4;
+
+            // --- NAVIGATION LOGIC ---
+            function goToStep(stepNum) {
+                // Hide current active steps
+                document.querySelectorAll('.step.active').forEach(el => {
+                    el.classList.remove('active');
+                    // Add completed class if moving forward to create slide-up effect
+                    if(stepNum > currentStep) {
+                        el.classList.add('completed');
+                    }
+                });
+
+                // Small delay to allow fade out before fading in
+                setTimeout(() => {
+                    const nextEl = document.getElementById(`step-${stepNum}`);
+                    // Remove completed class if exist to reset transform
+                    nextEl.classList.remove('completed');
+                    nextEl.classList.add('active');
+                    currentStep = stepNum;
+
+                    // Focus inputs dynamically
+                    if(stepNum === 2) {
+                        setTimeout(() => document.getElementById('input-name').focus(), 500);
+                    }
+                }, 300);
+            }
+
+            // Back button handling
+            document.querySelectorAll('.btn-back').forEach(btn => {
+                btn.addEventListener('click', (e) => {
+                    const target = parseInt(e.currentTarget.getAttribute('data-target'));
+                    // Remove completed from the target so it slides down from top
+                    document.getElementById(`step-${target}`).classList.remove('completed');
+                    goToStep(target);
+                });
+            });
+
+            // --- STEP 1 LOGIC ---
+            const typeBtns = document.querySelectorAll('.type-btn');
+            typeBtns.forEach(btn => {
+                btn.addEventListener('click', (e) => {
+                    // Visually select
+                    typeBtns.forEach(b => b.classList.remove('glass-selected', 'border-primary'));
+                    const targetBtn = e.currentTarget;
+                    targetBtn.classList.add('glass-selected', 'border-primary');
+                    
+                    // Save state
+                    orderData.type = targetBtn.getAttribute('data-type');
+                    
+                    // Proceed
+                    setTimeout(() => goToStep(2), 400);
+                });
+            });
+
+            // --- STEP 2 LOGIC ---
+            const inputName = document.getElementById('input-name');
+            const inputPax = document.getElementById('input-pax');
+            const inputDate = document.getElementById('input-date');
+            const btnNext2 = document.getElementById('btn-next-2');
+
+            // Set min date to today
+            const today = new Date().toISOString().split('T')[0];
+            inputDate.setAttribute('min', today);
+
+            function validateStep2() {
+                if(inputName.value.trim().length > 1 && inputDate.value !== '') {
+                    btnNext2.removeAttribute('disabled');
+                } else {
+                    btnNext2.setAttribute('disabled', 'true');
+                }
+            }
+
+            inputName.addEventListener('input', validateStep2);
+            inputDate.addEventListener('change', validateStep2);
+
+            btnNext2.addEventListener('click', () => {
+                orderData.name = inputName.value.trim();
+                orderData.pax = inputPax.value;
+                orderData.date = inputDate.value;
+
+                // Dynamically update Step 3 Greeting
+                // Grab first name only for a friendly tone
+                const firstName = orderData.name.split(' ')[0];
+                document.getElementById('dynamic-greeting').innerHTML = `Got it, <span class="text-primary">${firstName}</span>.<br>Let's pick your ride.`;
+
+                goToStep(3);
+            });
+
+            // --- STEP 3 LOGIC ---
+            const vehicleCards = document.querySelectorAll('.vehicle-card');
+            const btnNext3 = document.getElementById('btn-next-3');
+
+            vehicleCards.forEach(card => {
+                card.addEventListener('click', (e) => {
+                    const targetCard = e.currentTarget;
+                    
+                    // Remove selection styling from all
+                    vehicleCards.forEach(c => {
+                        c.classList.remove('glass-selected');
+                        c.querySelector('.check-icon').classList.remove('opacity-100', 'bg-primary', 'border-primary');
+                        c.querySelector('.check-icon i').classList.remove('text-white');
+                        c.querySelector('.check-icon i').classList.add('text-primary');
+                    });
+
+                    // Add to clicked
+                    targetCard.classList.add('glass-selected');
+                    const checkIcon = targetCard.querySelector('.check-icon');
+                    checkIcon.classList.add('opacity-100', 'bg-primary', 'border-primary');
+                    checkIcon.querySelector('i').classList.remove('text-primary');
+                    checkIcon.querySelector('i').classList.add('text-white');
+
+                    // Save State
+                    orderData.vehicle = targetCard.getAttribute('data-vehicle');
+
+                    // Show next button beautifully
+                    btnNext3.classList.remove('opacity-0', 'pointer-events-none', 'translate-y-4');
+                    btnNext3.classList.add('opacity-100', 'pointer-events-auto', 'translate-y-0');
+                    
+                    // Smoothly scroll the container safely without shifting the whole page
+                    const carousel = document.getElementById('vehicle-carousel');
+                    const scrollLeftPos = targetCard.offsetLeft - (carousel.offsetWidth / 2) + (targetCard.offsetWidth / 2);
+                    carousel.scrollTo({
+                        left: scrollLeftPos,
+                        behavior: 'smooth'
+                    });
+                });
+            });
+
+            btnNext3.addEventListener('click', () => {
+                // Populate Step 4 Summary
+                document.getElementById('sum-name').innerText = orderData.name;
+                document.getElementById('sum-type').innerText = orderData.type;
+                document.getElementById('sum-vehicle').innerText = orderData.vehicle;
+                document.getElementById('sum-pax').innerText = orderData.pax;
+                
+                // Format Date nicely
+                const dateObj = new Date(orderData.date);
+                const options = { weekday: 'short', year: 'numeric', month: 'short', day: 'numeric' };
+                document.getElementById('sum-date').innerText = dateObj.toLocaleDateString('en-US', options);
+
+                goToStep(4);
+            });
+
+            // --- STEP 4 LOGIC (WhatsApp Dispatch) ---
+            const btnSubmit = document.getElementById('btn-submit');
+            btnSubmit.addEventListener('click', () => {
+                // Format the WhatsApp Message
+                const message = `*NEW BOOKING INQUIRY - AMEZIANE TOURS* 🐪✨\n\n`
+                    + `*Guest Name:* ${orderData.name}\n`
+                    + `*Service Required:* ${orderData.type}\n`
+                    + `*Vehicle Preferred:* ${orderData.vehicle}\n`
+                    + `*Passengers:* ${orderData.pax}\n`
+                    + `*Start Date:* ${orderData.date}\n\n`
+                    + `_Please let me know about availability and pricing._`;
+
+                const phone = "212679141540"; // Moroccan format without the '+'
+                const whatsappUrl = `https://wa.me/${phone}?text=${encodeURIComponent(message)}`;
+
+                // Add loading effect visually to button before redirect
+                btnSubmit.innerHTML = `<i class="fas fa-circle-notch fa-spin text-2xl mr-3"></i> Redirecting...`;
+                
+                setTimeout(() => {
+                    window.open(whatsappUrl, '_blank');
+                    // Reset button
+                    btnSubmit.innerHTML = `<i class="fab fa-whatsapp text-2xl mr-3"></i> Send Order via WhatsApp`;
+                }, 800);
+            });
+
+        });
+    </script>
+</body>
+</html>
