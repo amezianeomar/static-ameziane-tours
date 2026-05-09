@@ -8,21 +8,17 @@
     <meta name="description"
         content="Explore our extensive collection of premium Moroccan tours, day trips, and tailored transfer services.">
     <link rel="icon" type="image/png" href="images/eagle-logo.png">
-    
-    <!-- Tailwind CSS CDN -->
     <script src="https://cdn.tailwindcss.com"></script>
-
-    <!-- Custom Tailwind Configuration -->
     <script>
         tailwind.config = {
             theme: {
                 extend: {
                     colors: {
-                        primary: '#b8860b', // gold
-                        primaryHover: '#996515', // darker gold
-                        secondary: '#111111', // black
-                        dark: '#1c1917', // stone-900
-                        light: '#fafaf9', // stone-50
+                        primary: '#b8860b',
+                        primaryHover: '#996515',
+                        secondary: '#111111',
+                        dark: '#1c1917',
+                        light: '#fafaf9',
                     },
                     fontFamily: {
                         sans: ['Inter', 'sans-serif'],
@@ -32,36 +28,92 @@
             }
         }
     </script>
-
-    <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link
-        href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Merriweather:wght@300;400;700&display=swap"
-        rel="stylesheet">
-
-    <!-- FontAwesome for Icons -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Merriweather:wght@300;400;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
     <style>
-        body {
-            font-family: 'Inter', sans-serif;
-            background-color: #fafaf9;
-        }
-
-        h1, h2, h3, h4, h5, h6, .display-font {
-            font-family: 'Merriweather', serif;
-        }
+        body { font-family: 'Inter', sans-serif; background-color: #fafaf9; }
+        h1,h2,h3,h4,h5,h6,.display-font { font-family: 'Merriweather', serif; }
 
         @keyframes fadeInUp {
-            from { opacity: 0; transform: translateY(20px); }
+            from { opacity: 0; transform: translateY(30px); }
             to { opacity: 1; transform: translateY(0); }
         }
+        .hero-anim { opacity: 0; animation: fadeInUp 0.8s ease-out forwards; }
+        
+        /* Hide scrollbar for horizontal scroll containers */
+        .scrollbar-hide::-webkit-scrollbar { display: none; }
+        .scrollbar-hide { -ms-overflow-style: none; scrollbar-width: none; }
 
-        .hero-anim {
+        /* Scroll reveal */
+        .observe-fade {
             opacity: 0;
-            animation: fadeInUp 0.8s ease-out forwards;
+            transform: translateY(40px);
+            transition: opacity 0.7s cubic-bezier(0.22,1,0.36,1), transform 0.7s cubic-bezier(0.22,1,0.36,1);
         }
+        .observe-fade.is-visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Filter bar */
+        .filter-pill {
+            transition: all 0.3s ease;
+            position: relative;
+        }
+        .filter-pill::after {
+            content: '';
+            position: absolute;
+            bottom: -2px;
+            left: 50%;
+            width: 0;
+            height: 2px;
+            background: #b8860b;
+            transition: all 0.3s ease;
+            transform: translateX(-50%);
+        }
+        .filter-pill.active {
+            color: #b8860b;
+            background: rgba(184,134,11,0.1);
+        }
+        .filter-pill.active::after {
+            width: 60%;
+        }
+
+        /* Card hover glow */
+        .card-glow {
+            transition: all 0.5s cubic-bezier(0.22,1,0.36,1);
+        }
+        .card-glow:hover {
+            box-shadow: 0 20px 60px -15px rgba(184,134,11,0.2), 0 0 0 1px rgba(184,134,11,0.15);
+            transform: translateY(-6px);
+        }
+
+        /* Feature card */
+        .feature-card {
+            transition: all 0.5s cubic-bezier(0.22,1,0.36,1);
+        }
+        .feature-card:hover {
+            box-shadow: 0 25px 60px -12px rgba(0,0,0,0.25);
+            transform: translateY(-4px);
+        }
+        .feature-card:hover .feature-img {
+            transform: scale(1.05);
+        }
+
+        /* Route arrow animation */
+        .route-arrow { transition: transform 0.3s ease; }
+        .route-card:hover .route-arrow { transform: translateX(4px); }
+
+        /* Stagger children */
+        .stagger-children > *:nth-child(1) { transition-delay: 0.05s; }
+        .stagger-children > *:nth-child(2) { transition-delay: 0.12s; }
+        .stagger-children > *:nth-child(3) { transition-delay: 0.19s; }
+        .stagger-children > *:nth-child(4) { transition-delay: 0.26s; }
+        .stagger-children > *:nth-child(5) { transition-delay: 0.33s; }
+        .stagger-children > *:nth-child(6) { transition-delay: 0.40s; }
     </style>
 </head>
 
@@ -71,24 +123,19 @@
     <nav class="fixed w-full z-50 transition-all duration-300 bg-white/95 backdrop-blur-md shadow-sm border-b border-gray-100" id="navbar">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="flex justify-between items-center h-20">
-                <!-- Logo -->
                 <div class="flex-shrink-0 flex items-center gap-3">
-                    <img src="images/eagle-logo.png" alt="Ameziane Tours Logo" class="h-10 w-auto object-contain">
-                    <a href="index.html" class="display-font text-2xl font-bold text-secondary tracking-wider">
+                    <img src="images/eagle-logo.png" alt="Ameziane Tours Logo" class="h-8 md:h-10 w-auto object-contain">
+                    <a href="index.html" class="display-font text-xl md:text-2xl font-bold text-secondary tracking-wider">
                         AMEZIANE <span class="text-primary">TOURS</span>
                     </a>
                 </div>
-
-                <!-- Desktop Menu -->
                 <div class="hidden md:flex space-x-8 items-center">
-                    <a href="index.html#home" class="text-dark hover:text-primary transition-colors duration-300 font-medium text-sm tracking-wide uppercase">Home</a>
+                    <a href="index.html" class="text-dark hover:text-primary transition-colors duration-300 font-medium text-sm tracking-wide uppercase">Home</a>
                     <a href="about.html" class="text-dark hover:text-primary transition-colors duration-300 font-medium text-sm tracking-wide uppercase">About & Fleet</a>
                     <a href="experiences.html" class="text-primary font-bold transition-colors duration-300 text-sm tracking-wide uppercase border-b-2 border-primary pb-1">Experiences</a>
                     <a href="index.html#contact" class="text-dark hover:text-primary transition-colors duration-300 font-medium text-sm tracking-wide uppercase">Contact</a>
                     <a href="order.html" class="bg-primary hover:bg-primaryHover text-white px-6 py-2.5 rounded-full font-bold text-sm tracking-wider uppercase transition-all shadow-[0_4px_14px_0_rgba(184,134,11,0.39)] hover:shadow-[0_6px_20px_rgba(184,134,11,0.23)] hover:-translate-y-0.5">Book Now</a>
                 </div>
-
-                <!-- Mobile Menu Button -->
                 <div class="md:hidden flex items-center">
                     <button id="mobile-menu-btn" class="text-dark hover:text-primary focus:outline-none transition-colors duration-300" aria-label="Toggle Menu">
                         <i class="fas fa-bars text-2xl"></i>
@@ -96,11 +143,9 @@
                 </div>
             </div>
         </div>
-
-        <!-- Mobile Menu (Hidden by default) -->
         <div id="mobile-menu" class="hidden md:hidden bg-white shadow-xl absolute w-full border-t border-gray-100">
             <div class="px-4 pt-4 pb-8 space-y-1">
-                <a href="index.html#home" class="block px-4 py-3 text-base font-semibold text-dark hover:text-primary hover:bg-stone-50 rounded-lg transition-colors mobile-link uppercase tracking-wider">Home</a>
+                <a href="index.html" class="block px-4 py-3 text-base font-semibold text-dark hover:text-primary hover:bg-stone-50 rounded-lg transition-colors mobile-link uppercase tracking-wider">Home</a>
                 <a href="about.html" class="block px-4 py-3 text-base font-semibold text-dark hover:text-primary hover:bg-stone-50 rounded-lg transition-colors mobile-link uppercase tracking-wider">About & Fleet</a>
                 <a href="experiences.html" class="block px-4 py-3 text-base font-bold text-primary bg-stone-50 rounded-lg transition-colors mobile-link uppercase tracking-wider">Experiences</a>
                 <a href="index.html#contact" class="block px-4 py-3 text-base font-semibold text-dark hover:text-primary hover:bg-stone-50 rounded-lg transition-colors mobile-link uppercase tracking-wider">Contact</a>
@@ -110,251 +155,179 @@
     </nav>
 
     <!-- Hero Section -->
-    <section class="relative h-[60vh] flex items-center justify-center overflow-hidden">
-        <!-- Background Image with Overlay -->
+    <section class="relative h-[70vh] flex items-center justify-center overflow-hidden">
         <div class="absolute inset-0 z-0">
-            <!-- Unsplash Morocco Image -->
-            <img src="images/UK_Casablanca_Morocco_Header.jpg"
-                alt="Moroccan Gateway" class="w-full h-full object-cover">
-            <div class="absolute inset-0 bg-gradient-to-b from-dark/80 via-dark/50 to-stone-100/90"></div>
+            <img src="images/UK_Casablanca_Morocco_Header.jpg" alt="Moroccan Gateway" class="w-full h-full object-cover">
+            <div class="absolute inset-0 bg-gradient-to-b from-dark/80 via-dark/50 to-light"></div>
         </div>
-
-        <!-- Hero Content -->
         <div class="relative z-10 text-center px-4 max-w-5xl mx-auto mt-16 pt-10">
-            <span class="hero-anim block text-primary font-bold tracking-[0.2em] uppercase mb-4 text-sm md:text-base drop-shadow-md" style="animation-delay: 0.1s;">Our Services</span>
-            <h1 class="hero-anim display-font text-5xl md:text-7xl font-bold text-white mb-6 leading-tight drop-shadow-lg" style="animation-delay: 0.3s;">
+            <span class="hero-anim block text-primary font-bold tracking-[0.2em] uppercase mb-4 text-sm md:text-base drop-shadow-md" style="animation-delay:0.1s;">Curated For You</span>
+            <h1 class="hero-anim display-font text-5xl md:text-7xl font-bold text-white mb-6 leading-tight drop-shadow-lg" style="animation-delay:0.3s;">
                 Exclusive <span class="text-primary">Experiences</span>
             </h1>
-            <p class="hero-anim text-lg md:text-xl text-gray-200 max-w-2xl mx-auto font-light leading-relaxed" style="animation-delay: 0.5s;">
-                Discover our comprehensive selection of day trips, expansive country tours, and premium transport services.
+            <p class="hero-anim text-lg md:text-xl text-gray-200 max-w-2xl mx-auto font-light leading-relaxed mb-10" style="animation-delay:0.5s;">
+                From sun-drenched day trips to epic multi-day odysseys — handcrafted journeys that define Moroccan luxury.
             </p>
+            <!-- Stats Row -->
+            <div class="hero-anim grid grid-cols-2 sm:flex sm:flex-wrap sm:justify-center gap-4 md:gap-10 text-white/80 text-sm md:text-base font-medium text-center" style="animation-delay:0.7s;">
+                <span class="flex items-center gap-2"><i class="fas fa-compass text-primary"></i> 13+ Services</span>
+                <span class="hidden sm:inline text-white/30">|</span>
+                <span class="flex items-center gap-2"><i class="fas fa-sun text-primary"></i> Day Trips</span>
+                <span class="hidden sm:inline text-white/30">|</span>
+                <span class="flex items-center gap-2"><i class="fas fa-route text-primary"></i> Grand Tours</span>
+                <span class="hidden sm:inline text-white/30">|</span>
+                <span class="flex items-center gap-2"><i class="fas fa-star text-primary"></i> VIP Transfers</span>
+            </div>
+        </div>
+        <!-- Scroll prompt -->
+        <div class="absolute bottom-8 left-0 right-0 z-10 flex justify-center animate-bounce">
+            <a href="#filter-bar" class="text-white/50 hover:text-white transition-colors p-3 rounded-full bg-dark/20 backdrop-blur-sm border border-white/10">
+                <i class="fas fa-chevron-down"></i>
+            </a>
         </div>
     </section>
 
-    <!-- Full Experiences Grid -->
-    <section class="py-16 lg:py-24 bg-stone-100 relative">
+    <!-- Sticky Filter Bar -->
+    <div id="filter-bar" class="sticky top-20 z-40 bg-white/90 backdrop-blur-lg border-b border-stone-200 shadow-sm">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-start md:justify-center gap-2 md:gap-4 py-4 overflow-x-auto scrollbar-hide" id="filter-pills">
+                <button class="filter-pill active px-5 py-2.5 rounded-full text-sm font-bold tracking-wider uppercase whitespace-nowrap" data-target="day-trips">
+                    <i class="fas fa-sun mr-2 text-xs"></i>Day Trips
+                </button>
+                <button class="filter-pill px-5 py-2.5 rounded-full text-sm font-bold tracking-wider uppercase text-gray-500 hover:text-dark whitespace-nowrap" data-target="grand-tours">
+                    <i class="fas fa-route mr-2 text-xs"></i>Grand Tours
+                </button>
+                <button class="filter-pill px-5 py-2.5 rounded-full text-sm font-bold tracking-wider uppercase text-gray-500 hover:text-dark whitespace-nowrap" data-target="vip-transfers">
+                    <i class="fas fa-star mr-2 text-xs"></i>VIP Transfers
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- ============ SECTION 1: DAY TRIPS ============ -->
+    <section id="day-trips" class="py-20 lg:py-28 bg-stone-50 relative overflow-hidden">
+        <div class="absolute top-0 right-0 w-96 h-96 bg-primary/5 rounded-full blur-3xl -translate-y-1/2 translate-x-1/3"></div>
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-            
-            <!-- Grid Container - Using CSS Columns for true Masonry feel, but grouped gracefully handling break-inside-avoid -->
-            <div class="columns-1 md:columns-2 lg:columns-3 gap-8 space-y-8">
+            <div class="text-center mb-16 observe-fade">
+                <div class="inline-flex items-center gap-2 bg-white px-5 py-2.5 rounded-full mb-6 shadow-sm border border-stone-100">
+                    <i class="fas fa-sun text-primary text-sm"></i>
+                    <span class="text-dark font-bold tracking-widest text-xs uppercase">Day Trips & Excursions</span>
+                </div>
+                <h2 class="display-font text-4xl lg:text-5xl font-bold text-dark mb-4">Discover in a Day</h2>
+                <p class="text-gray-500 text-lg font-light max-w-2xl mx-auto">Perfectly paced single-day adventures through Morocco's most captivating northern destinations.</p>
+            </div>
 
-                <!-- 1. Chefchaouen Day Trip & Tangier Panoramic -->
-                <div class="break-inside-avoid bg-white rounded-2xl overflow-hidden shadow-xl shadow-stone-200/50 hover:shadow-2xl hover:shadow-secondary/10 transition-all duration-500 transform hover:-translate-y-2 flex flex-col group border border-stone-100">
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10 md:gap-8 stagger-children">
+
+                <!-- Trip 1: Chefchaouen & Tangier -->
+                <div class="observe-fade card-glow bg-white rounded-2xl overflow-hidden border border-stone-100 group flex flex-col">
                     <div class="relative overflow-hidden h-64">
-                        <img src="https://images.unsplash.com/photo-1552044828-1b6fb092a4ba?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Chefchaouen" class="w-full h-full object-cover transition-transform duration-1000 group-hover:scale-110">
-                        <div class="absolute inset-0 bg-gradient-to-t from-dark/90 via-dark/10 to-transparent"></div>
+                        <img src="images/chefchaouen.jpg" alt="Chefchaouen" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110">
+                        <div class="absolute inset-0 bg-gradient-to-t from-dark/80 via-transparent to-transparent"></div>
+                        <span class="absolute top-4 left-4 bg-primary text-white text-xs font-bold px-3 py-1.5 rounded-full tracking-wider uppercase">Popular</span>
+                        <div class="absolute bottom-4 left-4 right-4">
+                            <h3 class="display-font text-xl font-bold text-white leading-snug">Chefchaouen & Tangier Panoramic</h3>
+                        </div>
                     </div>
-                    <div class="p-8 flex-grow flex flex-col">
-                        <h3 class="display-font text-xl font-bold text-dark mb-4 leading-tight">Chefchaouen Day Trip & Tangier Panoramic View</h3>
-                        <p class="text-gray-600 mb-6 leading-relaxed flex-grow text-sm">
-                            Capture the essence of the "Blue Pearl" followed by breathtaking coastal vistas of where the Mediterranean meets the Atlantic in Tangier.
-                        </p>
-                        <a href="index.html#contact" class="inline-flex items-center font-bold text-primary hover:text-dark transition-colors w-fit text-sm uppercase tracking-wide">
-                            View Details <i class="fas fa-arrow-right ml-2 transition-transform group-hover:translate-x-1"></i>
+                    <div class="p-6 flex-grow flex flex-col">
+                        <div class="flex items-center gap-3 text-xs text-gray-400 font-semibold uppercase tracking-wider mb-4">
+                            <span><i class="far fa-clock mr-1"></i>Full Day</span>
+                            <span class="text-stone-300">•</span>
+                            <span><i class="fas fa-users mr-1"></i>2-15 Pax</span>
+                        </div>
+                        <p class="text-gray-600 text-sm leading-relaxed flex-grow mb-6">Capture the essence of the "Blue Pearl" followed by breathtaking coastal vistas where the Mediterranean meets the Atlantic.</p>
+                        <a href="order.html" class="inline-flex items-center justify-center w-full py-3 rounded-xl bg-stone-50 hover:bg-primary hover:text-white text-dark font-bold text-sm tracking-wide uppercase transition-all duration-300 border border-stone-100 hover:border-primary group/btn">
+                            Book This Trip <i class="fas fa-arrow-right ml-2 text-xs transition-transform group-hover/btn:translate-x-1"></i>
                         </a>
                     </div>
                 </div>
 
-                <!-- 2. Full-Day Tangier, Asilah & Cape Spartel -->
-                <div class="break-inside-avoid bg-white rounded-2xl overflow-hidden shadow-xl shadow-stone-200/50 hover:shadow-2xl hover:shadow-secondary/10 transition-all duration-500 transform hover:-translate-y-2 flex flex-col group border border-stone-100">
-                    <div class="relative overflow-hidden h-80">
-                        <img src="https://images.unsplash.com/photo-1577147443647-81856d5151af?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Tangier Coast" class="w-full h-full object-cover transition-transform duration-1000 group-hover:scale-110">
-                        <div class="absolute inset-0 bg-gradient-to-t from-dark/90 via-dark/10 to-transparent"></div>
-                    </div>
-                    <div class="p-8 flex-grow flex flex-col">
-                        <h3 class="display-font text-xl font-bold text-dark mb-4 leading-tight">Full-Day Tangier, Asilah & Cape Spartel Tour</h3>
-                        <p class="text-gray-600 mb-6 leading-relaxed flex-grow text-sm">
-                            A comprehensive exploration of the vibrant north. Wander through Asilah's art-adorned medina and stand at the edge of the continent at majestic Cape Spartel.
-                        </p>
-                        <a href="index.html#contact" class="inline-flex items-center font-bold text-primary hover:text-dark transition-colors w-fit text-sm uppercase tracking-wide">
-                            View Details <i class="fas fa-arrow-right ml-2 transition-transform group-hover:translate-x-1"></i>
-                        </a>
-                    </div>
-                </div>
-
-                <!-- 3. Chefchaouen & Tetouan Day Trip -->
-                <div class="break-inside-avoid bg-white rounded-2xl overflow-hidden shadow-xl shadow-stone-200/50 hover:shadow-2xl hover:shadow-secondary/10 transition-all duration-500 transform hover:-translate-y-2 flex flex-col group border border-stone-100">
-                    <div class="relative overflow-hidden h-56">
-                        <img src="https://images.unsplash.com/photo-1563200782-b7ca0ddadbd2?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Tetouan and Chefchaouen" class="w-full h-full object-cover transition-transform duration-1000 group-hover:scale-110">
-                        <div class="absolute inset-0 bg-gradient-to-t from-dark/90 via-dark/10 to-transparent"></div>
-                    </div>
-                    <div class="p-8 flex-grow flex flex-col">
-                        <h3 class="display-font text-xl font-bold text-dark mb-4 leading-tight">Chefchaouen & Tetouan Day Trip</h3>
-                        <p class="text-gray-600 mb-6 leading-relaxed flex-grow text-sm">
-                            Experience the Hispano-Moorish architecture of the "White Dove" (Tetouan) before ascending into the striking blue calm of the Rif mountains.
-                        </p>
-                        <a href="index.html#contact" class="inline-flex items-center font-bold text-primary hover:text-dark transition-colors w-fit text-sm uppercase tracking-wide">
-                            View Details <i class="fas fa-arrow-right ml-2 transition-transform group-hover:translate-x-1"></i>
-                        </a>
-                    </div>
-                </div>
-
-                <!-- 4. Taste of the North -->
-                <div class="break-inside-avoid bg-white rounded-2xl overflow-hidden shadow-xl shadow-stone-200/50 hover:shadow-2xl hover:shadow-secondary/10 transition-all duration-500 transform hover:-translate-y-2 flex flex-col group border border-stone-100">
-                    <div class="relative overflow-hidden h-72">
-                        <img src="https://images.unsplash.com/photo-1549488344-c7daab14db9a?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Northern Morocco Spread" class="w-full h-full object-cover transition-transform duration-1000 group-hover:scale-110">
-                        <div class="absolute inset-0 bg-gradient-to-t from-dark/90 via-dark/10 to-transparent"></div>
-                    </div>
-                    <div class="p-8 flex-grow flex flex-col">
-                        <h3 class="display-font text-xl font-bold text-dark mb-4 leading-tight">Taste of the North <br><span class="text-base font-sans font-normal text-gray-500">(Chefchaouen, Asilah, Tetouan, Tangier)</span></h3>
-                        <p class="text-gray-600 mb-6 leading-relaxed flex-grow text-sm">
-                            The ultimate northern immersion. See the best coastal medinas, mountain fortresses, and vibrant port atmospheres in an unforgettable curated journey.
-                        </p>
-                        <a href="index.html#contact" class="inline-flex items-center font-bold text-primary hover:text-dark transition-colors w-fit text-sm uppercase tracking-wide">
-                            View Details <i class="fas fa-arrow-right ml-2 transition-transform group-hover:translate-x-1"></i>
-                        </a>
-                    </div>
-                </div>
-
-                <!-- 5. Akchour Waterfalls -->
-                <div class="break-inside-avoid bg-white rounded-2xl overflow-hidden shadow-xl shadow-stone-200/50 hover:shadow-2xl hover:shadow-secondary/10 transition-all duration-500 transform hover:-translate-y-2 flex flex-col group border border-stone-100">
+                <!-- Trip 2: Tangier, Asilah & Cape Spartel -->
+                <div class="observe-fade card-glow bg-white rounded-2xl overflow-hidden border border-stone-100 group flex flex-col">
                     <div class="relative overflow-hidden h-64">
-                        <img src="https://images.unsplash.com/photo-1469474968028-56623f02e42e?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Waterfalls Hike" class="w-full h-full object-cover transition-transform duration-1000 group-hover:scale-110">
-                        <div class="absolute inset-0 bg-gradient-to-t from-dark/90 via-dark/10 to-transparent"></div>
+                        <img src="images/Tangier%20S.jpg" alt="Tangier Coast" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110">
+                        <div class="absolute inset-0 bg-gradient-to-t from-dark/80 via-transparent to-transparent"></div>
+                        <div class="absolute bottom-4 left-4 right-4">
+                            <h3 class="display-font text-xl font-bold text-white leading-snug">Tangier, Asilah & Cape Spartel</h3>
+                        </div>
                     </div>
-                    <div class="p-8 flex-grow flex flex-col">
-                        <h3 class="display-font text-xl font-bold text-dark mb-4 leading-tight">Chefchaouen & Akchour Waterfalls Nature Hike</h3>
-                        <p class="text-gray-600 mb-6 leading-relaxed flex-grow text-sm">
-                            Pair urban exploration with fresh air. Trek through stunning, lush valleys and discover the crystalline pools of the Akchour Waterfalls.
-                        </p>
-                        <a href="index.html#contact" class="inline-flex items-center font-bold text-primary hover:text-dark transition-colors w-fit text-sm uppercase tracking-wide">
-                            View Details <i class="fas fa-arrow-right ml-2 transition-transform group-hover:translate-x-1"></i>
+                    <div class="p-6 flex-grow flex flex-col">
+                        <div class="flex items-center gap-3 text-xs text-gray-400 font-semibold uppercase tracking-wider mb-4">
+                            <span><i class="far fa-clock mr-1"></i>Full Day</span>
+                            <span class="text-stone-300">•</span>
+                            <span><i class="fas fa-users mr-1"></i>2-15 Pax</span>
+                        </div>
+                        <p class="text-gray-600 text-sm leading-relaxed flex-grow mb-6">Wander through Asilah's art-adorned medina and stand at the edge of the continent at majestic Cape Spartel.</p>
+                        <a href="order.html" class="inline-flex items-center justify-center w-full py-3 rounded-xl bg-stone-50 hover:bg-primary hover:text-white text-dark font-bold text-sm tracking-wide uppercase transition-all duration-300 border border-stone-100 hover:border-primary group/btn">
+                            Book This Trip <i class="fas fa-arrow-right ml-2 text-xs transition-transform group-hover/btn:translate-x-1"></i>
                         </a>
                     </div>
                 </div>
 
-                <!-- 6. Tangier to Rabat, Fez (5 Days) -->
-                <div class="break-inside-avoid bg-white rounded-2xl overflow-hidden shadow-xl shadow-stone-200/50 hover:shadow-2xl hover:shadow-secondary/10 transition-all duration-500 transform hover:-translate-y-2 flex flex-col group border border-stone-100">
-                    <div class="relative overflow-hidden h-72">
-                        <img src="https://images.unsplash.com/photo-1574314275037-ce65c66cb1e8?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Fez Medina" class="w-full h-full object-cover transition-transform duration-1000 group-hover:scale-110">
-                        <div class="absolute inset-0 bg-gradient-to-t from-dark/90 via-dark/10 to-transparent"></div>
-                    </div>
-                    <div class="p-8 flex-grow flex flex-col">
-                        <span class="text-xs font-bold text-secondary uppercase tracking-widest mb-2">5 Days Tour</span>
-                        <h3 class="display-font text-xl font-bold text-dark mb-4 leading-tight">Tangier to Rabat, Fez & Chefchaouen</h3>
-                        <p class="text-gray-600 mb-6 leading-relaxed flex-grow text-sm">
-                            A perfectly paced multi-day itinerary tracing Morocco's rich history through its monumental capital, its ancient spiritual heart, and the iconic Blue City.
-                        </p>
-                        <a href="index.html#contact" class="inline-flex items-center font-bold text-primary hover:text-dark transition-colors w-fit text-sm uppercase tracking-wide">
-                            View Details <i class="fas fa-arrow-right ml-2 transition-transform group-hover:translate-x-1"></i>
-                        </a>
-                    </div>
-                </div>
-
-                <!-- 7. Imperial Cities (8 Days) -->
-                <div class="break-inside-avoid bg-white rounded-2xl overflow-hidden shadow-xl shadow-stone-200/50 hover:shadow-2xl hover:shadow-secondary/10 transition-all duration-500 transform hover:-translate-y-2 flex flex-col group border border-stone-100">
-                    <div class="relative overflow-hidden h-80">
-                        <img src="https://images.unsplash.com/photo-1549488344-1f9b8d2bd1f3?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Marrakech Architecture" class="w-full h-full object-cover transition-transform duration-1000 group-hover:scale-110">
-                        <div class="absolute inset-0 bg-gradient-to-t from-dark/90 via-dark/10 to-transparent"></div>
-                    </div>
-                    <div class="p-8 flex-grow flex flex-col">
-                        <span class="text-xs font-bold text-secondary uppercase tracking-widest mb-2">8 Days Tour</span>
-                        <h3 class="display-font text-xl font-bold text-dark mb-4 leading-tight">Imperial Cities Tour</h3>
-                        <p class="text-gray-600 mb-6 leading-relaxed flex-grow text-sm">
-                            The definitive Moroccan deep dive. Experience the architectural grandeur, the winding alleys, and the vibrant souks of Marrakech, Fes, Meknes, and Rabat.
-                        </p>
-                        <a href="index.html#contact" class="inline-flex items-center font-bold text-primary hover:text-dark transition-colors w-fit text-sm uppercase tracking-wide">
-                            View Details <i class="fas fa-arrow-right ml-2 transition-transform group-hover:translate-x-1"></i>
-                        </a>
-                    </div>
-                </div>
-
-                <!-- 8. Desert Tour (8 Days) -->
-                <div class="break-inside-avoid bg-white rounded-2xl overflow-hidden shadow-xl shadow-stone-200/50 hover:shadow-2xl hover:shadow-secondary/10 transition-all duration-500 transform hover:-translate-y-2 flex flex-col group border border-stone-100">
+                <!-- Trip 3: Chefchaouen & Tetouan -->
+                <div class="observe-fade card-glow bg-white rounded-2xl overflow-hidden border border-stone-100 group flex flex-col">
                     <div class="relative overflow-hidden h-64">
-                        <img src="https://images.unsplash.com/photo-1542401886-65d6c61de152?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Sahara Desert Trek" class="w-full h-full object-cover transition-transform duration-1000 group-hover:scale-110">
-                        <div class="absolute inset-0 bg-gradient-to-t from-dark/90 via-dark/10 to-transparent"></div>
+                        <img src="images/8ad9cb1597f7b5dad9b2928b2fdef736.webp" alt="Tetouan and Chefchaouen" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110">
+                        <div class="absolute inset-0 bg-gradient-to-t from-dark/80 via-transparent to-transparent"></div>
+                        <div class="absolute bottom-4 left-4 right-4">
+                            <h3 class="display-font text-xl font-bold text-white leading-snug">Chefchaouen & Tetouan</h3>
+                        </div>
                     </div>
-                    <div class="p-8 flex-grow flex flex-col">
-                        <span class="text-xs font-bold text-secondary uppercase tracking-widest mb-2">8 Days Tour</span>
-                        <h3 class="display-font text-xl font-bold text-dark mb-4 leading-tight">Morocco Desert Tour</h3>
-                        <p class="text-gray-600 mb-6 leading-relaxed flex-grow text-sm">
-                            Cross the mighty Atlas Mountains into the sprawling Sahara. Sleep under the darkest, star-filled skies in our premium luxury desert camps.
-                        </p>
-                        <a href="index.html#contact" class="inline-flex items-center font-bold text-primary hover:text-dark transition-colors w-fit text-sm uppercase tracking-wide">
-                            View Details <i class="fas fa-arrow-right ml-2 transition-transform group-hover:translate-x-1"></i>
+                    <div class="p-6 flex-grow flex flex-col">
+                        <div class="flex items-center gap-3 text-xs text-gray-400 font-semibold uppercase tracking-wider mb-4">
+                            <span><i class="far fa-clock mr-1"></i>Full Day</span>
+                            <span class="text-stone-300">•</span>
+                            <span><i class="fas fa-users mr-1"></i>2-15 Pax</span>
+                        </div>
+                        <p class="text-gray-600 text-sm leading-relaxed flex-grow mb-6">Experience the Hispano-Moorish architecture of the "White Dove" before ascending into the striking blue calm of the Rif mountains.</p>
+                        <a href="order.html" class="inline-flex items-center justify-center w-full py-3 rounded-xl bg-stone-50 hover:bg-primary hover:text-white text-dark font-bold text-sm tracking-wide uppercase transition-all duration-300 border border-stone-100 hover:border-primary group/btn">
+                            Book This Trip <i class="fas fa-arrow-right ml-2 text-xs transition-transform group-hover/btn:translate-x-1"></i>
                         </a>
                     </div>
                 </div>
 
-                <!-- 9. Chefchaouen Transfer -->
-                <div class="break-inside-avoid bg-white rounded-2xl overflow-hidden shadow-xl shadow-stone-200/50 hover:shadow-2xl hover:shadow-secondary/10 transition-all duration-500 transform hover:-translate-y-2 flex flex-col group border border-stone-100">
-                    <div class="relative overflow-hidden h-48">
-                        <img src="https://images.unsplash.com/photo-1518544801976-3e159e50e5bb?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Moroccan Highway" class="w-full h-full object-cover transition-transform duration-1000 group-hover:scale-110">
-                        <div class="absolute inset-0 bg-gradient-to-t from-dark/90 via-dark/10 to-transparent"></div>
+                <!-- Trip 4: Taste of the North -->
+                <div class="observe-fade card-glow bg-white rounded-2xl overflow-hidden border border-stone-100 group flex flex-col">
+                    <div class="relative overflow-hidden h-64">
+                        <img src="images/Tangier%20S.jpg" alt="Northern Morocco" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110">
+                        <div class="absolute inset-0 bg-gradient-to-t from-dark/80 via-transparent to-transparent"></div>
+                        <span class="absolute top-4 left-4 bg-dark text-white text-xs font-bold px-3 py-1.5 rounded-full tracking-wider uppercase">Multi-City</span>
+                        <div class="absolute bottom-4 left-4 right-4">
+                            <h3 class="display-font text-xl font-bold text-white leading-snug">Taste of the North</h3>
+                        </div>
                     </div>
-                    <div class="p-8 flex-grow flex flex-col">
-                        <span class="text-xs font-bold text-gray-400 uppercase tracking-widest mb-2">Private Transfer</span>
-                        <h3 class="display-font text-xl font-bold text-dark mb-4 leading-tight">Tangier to Chefchaouen</h3>
-                        <p class="text-gray-600 mb-6 leading-relaxed flex-grow text-sm">
-                            A seamless, comfortable, and direct private transfer from Tangier to the Blue Pearl of Morocco.
-                        </p>
-                        <a href="index.html#contact" class="inline-flex items-center font-bold text-primary hover:text-dark transition-colors w-fit text-sm uppercase tracking-wide">
-                            Book Transfer <i class="fas fa-arrow-right ml-2 transition-transform group-hover:translate-x-1"></i>
+                    <div class="p-6 flex-grow flex flex-col">
+                        <div class="flex items-center gap-3 text-xs text-gray-400 font-semibold uppercase tracking-wider mb-4">
+                            <span><i class="far fa-clock mr-1"></i>Full Day</span>
+                            <span class="text-stone-300">•</span>
+                            <span><i class="fas fa-map-pin mr-1"></i>4 Cities</span>
+                        </div>
+                        <p class="text-gray-600 text-sm leading-relaxed flex-grow mb-6">The ultimate northern immersion — Chefchaouen, Asilah, Tetouan, and Tangier in one unforgettable curated journey.</p>
+                        <a href="order.html" class="inline-flex items-center justify-center w-full py-3 rounded-xl bg-stone-50 hover:bg-primary hover:text-white text-dark font-bold text-sm tracking-wide uppercase transition-all duration-300 border border-stone-100 hover:border-primary group/btn">
+                            Book This Trip <i class="fas fa-arrow-right ml-2 text-xs transition-transform group-hover/btn:translate-x-1"></i>
                         </a>
                     </div>
                 </div>
 
-                <!-- 10. Casablanca Transfer -->
-                <div class="break-inside-avoid bg-white rounded-2xl overflow-hidden shadow-xl shadow-stone-200/50 hover:shadow-2xl hover:shadow-secondary/10 transition-all duration-500 transform hover:-translate-y-2 flex flex-col group border border-stone-100">
-                    <div class="relative overflow-hidden h-48">
-                        <img src="https://images.unsplash.com/photo-1589255877861-fb91b9efebda?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Hassan II Mosque Casablanca" class="w-full h-full object-cover transition-transform duration-1000 group-hover:scale-110">
-                        <div class="absolute inset-0 bg-gradient-to-t from-dark/90 via-dark/10 to-transparent"></div>
+                <!-- Trip 5: Akchour Waterfalls -->
+                <div class="observe-fade card-glow bg-white rounded-2xl overflow-hidden border border-stone-100 group flex flex-col">
+                    <div class="relative overflow-hidden h-64">
+                        <img src="images/moroccan-mountain-village-along-the-road-across-atlas-morocco-north-africa.webp" alt="Waterfalls Hike" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110">
+                        <div class="absolute inset-0 bg-gradient-to-t from-dark/80 via-transparent to-transparent"></div>
+                        <span class="absolute top-4 left-4 bg-green-700 text-white text-xs font-bold px-3 py-1.5 rounded-full tracking-wider uppercase">Nature</span>
+                        <div class="absolute bottom-4 left-4 right-4">
+                            <h3 class="display-font text-xl font-bold text-white leading-snug">Akchour Waterfalls Hike</h3>
+                        </div>
                     </div>
-                    <div class="p-8 flex-grow flex flex-col">
-                        <span class="text-xs font-bold text-gray-400 uppercase tracking-widest mb-2">Private Transfer</span>
-                        <h3 class="display-font text-xl font-bold text-dark mb-4 leading-tight">Tangier to Casablanca</h3>
-                        <p class="text-gray-600 mb-6 leading-relaxed flex-grow text-sm">
-                            Travel in style and premium comfort from the north to Morocco's bustling, modern metropolis.
-                        </p>
-                        <a href="index.html#contact" class="inline-flex items-center font-bold text-primary hover:text-dark transition-colors w-fit text-sm uppercase tracking-wide">
-                            Book Transfer <i class="fas fa-arrow-right ml-2 transition-transform group-hover:translate-x-1"></i>
-                        </a>
-                    </div>
-                </div>
-
-                <!-- 11. Fez via Chefchaouen Transfer -->
-                <div class="break-inside-avoid bg-white rounded-2xl overflow-hidden shadow-xl shadow-stone-200/50 hover:shadow-2xl hover:shadow-secondary/10 transition-all duration-500 transform hover:-translate-y-2 flex flex-col group border border-stone-100">
-                    <div class="relative overflow-hidden h-56">
-                        <img src="https://images.unsplash.com/photo-1553526777-5ffa3bca393c?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Fez Gates" class="w-full h-full object-cover transition-transform duration-1000 group-hover:scale-110">
-                        <div class="absolute inset-0 bg-gradient-to-t from-dark/90 via-dark/10 to-transparent"></div>
-                    </div>
-                    <div class="p-8 flex-grow flex flex-col">
-                        <span class="text-xs font-bold text-gray-400 uppercase tracking-widest mb-2">Scenic Route Transfer</span>
-                        <h3 class="display-font text-xl font-bold text-dark mb-4 leading-tight">Tangier to Fez <br><span class="text-base font-sans font-normal">(Via Chefchaouen)</span></h3>
-                        <p class="text-gray-600 mb-6 leading-relaxed flex-grow text-sm">
-                            Make your transit part of the journey. Stop to explore Chefchaouen before continuing to the ancient city of Fez.
-                        </p>
-                        <a href="index.html#contact" class="inline-flex items-center font-bold text-primary hover:text-dark transition-colors w-fit text-sm uppercase tracking-wide">
-                            Book Transfer <i class="fas fa-arrow-right ml-2 transition-transform group-hover:translate-x-1"></i>
-                        </a>
-                    </div>
-                </div>
-
-                <!-- 12. Airport & Port VIP -->
-                <div class="break-inside-avoid bg-white rounded-2xl overflow-hidden shadow-xl shadow-stone-200/50 hover:shadow-2xl hover:shadow-secondary/10 transition-all duration-500 transform hover:-translate-y-2 flex flex-col group border border-stone-100 bg-secondary group">
-                    <div class="p-8 flex-grow flex flex-col justify-center text-center">
-                        <i class="fas fa-plane-arrival text-4xl text-primary mb-6"></i>
-                        <h3 class="display-font text-2xl font-bold text-white mb-4 leading-tight">Airport & Port VIP Pickups</h3>
-                        <p class="text-gray-400 mb-6 leading-relaxed flex-grow text-sm">
-                            Start and end your journey stress-free. Punctual, luxurious, and completely reliable VIP pick-up and drop-off services across Tangier's transport hubs.
-                        </p>
-                        <a href="index.html#contact" class="inline-flex items-center justify-center font-bold text-primary hover:text-white transition-colors w-full border border-primary hover:bg-primary py-3 rounded-xl text-sm uppercase tracking-wide">
-                            Schedule Pickup
-                        </a>
-                    </div>
-                </div>
-
-                <!-- 13. Premium Vehicle Rentals -->
-                <div class="break-inside-avoid bg-white rounded-2xl overflow-hidden shadow-xl shadow-stone-200/50 hover:shadow-2xl hover:shadow-secondary/10 transition-all duration-500 transform hover:-translate-y-2 flex flex-col group border border-stone-100 bg-dark group">
-                    <div class="p-8 flex-grow flex flex-col justify-center text-center">
-                        <i class="fas fa-car-side text-4xl text-primary mb-6"></i>
-                        <h3 class="display-font text-2xl font-bold text-white mb-4 leading-tight">Premium Vehicle Rentals</h3>
-                        <p class="text-gray-400 mb-6 leading-relaxed flex-grow text-sm">
-                            Access our meticulously maintained fleet of Standard, VIP, and Minivan vehicles for your private tours and corporate travel needs.
-                        </p>
-                        <a href="index.html#contact" class="inline-flex items-center justify-center font-bold text-primary hover:text-white transition-colors w-full border border-primary hover:bg-primary py-3 rounded-xl text-sm uppercase tracking-wide">
-                            View Fleet
+                    <div class="p-6 flex-grow flex flex-col">
+                        <div class="flex items-center gap-3 text-xs text-gray-400 font-semibold uppercase tracking-wider mb-4">
+                            <span><i class="far fa-clock mr-1"></i>Full Day</span>
+                            <span class="text-stone-300">•</span>
+                            <span><i class="fas fa-hiking mr-1"></i>Moderate Trek</span>
+                        </div>
+                        <p class="text-gray-600 text-sm leading-relaxed flex-grow mb-6">Pair urban exploration with fresh mountain air. Trek through lush valleys and discover the crystalline pools of the Akchour Waterfalls.</p>
+                        <a href="order.html" class="inline-flex items-center justify-center w-full py-3 rounded-xl bg-stone-50 hover:bg-primary hover:text-white text-dark font-bold text-sm tracking-wide uppercase transition-all duration-300 border border-stone-100 hover:border-primary group/btn">
+                            Book This Trip <i class="fas fa-arrow-right ml-2 text-xs transition-transform group-hover/btn:translate-x-1"></i>
                         </a>
                     </div>
                 </div>
@@ -363,36 +336,223 @@
         </div>
     </section>
 
-    <!-- Footer -->
-    <footer class="bg-dark text-gray-400 py-16 border-t border-stone-800">
+    <!-- ============ SECTION 2: GRAND TOURS ============ -->
+    <section id="grand-tours" class="py-20 lg:py-28 bg-white relative">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="grid grid-cols-1 md:grid-cols-4 gap-12 mb-12">
-                <!-- Brand Info -->
-                <div class="md:col-span-2">
-                    <a href="index.html" class="display-font text-3xl font-bold text-white tracking-wider block mb-4">
-                        AMEZIANE <span class="text-primary">TOURS</span>
-                    </a>
-                    <p class="text-gray-400 mb-6 max-w-sm leading-relaxed">
-                        Curators of premium Moroccan travel experiences. We specialize in authentic cultural immersion,
-                        guided excursions, and tailor-made journeys across the Kingdom.
-                    </p>
-                    <div class="flex space-x-4">
-                        <a href="#" class="w-10 h-10 rounded-full bg-stone-800 flex items-center justify-center text-gray-400 hover:bg-secondary hover:text-white transition-all duration-300">
-                            <i class="fab fa-facebook-f"></i>
-                        </a>
-                        <a href="#" class="w-10 h-10 rounded-full bg-stone-800 flex items-center justify-center text-gray-400 hover:bg-secondary hover:text-white transition-all duration-300">
-                            <i class="fab fa-instagram"></i>
-                        </a>
-                        <a href="#" class="w-10 h-10 rounded-full bg-stone-800 flex items-center justify-center text-gray-400 hover:bg-secondary hover:text-white transition-all duration-300">
-                            <i class="fab fa-twitter"></i>
-                        </a>
-                        <a href="#" class="w-10 h-10 rounded-full bg-stone-800 flex items-center justify-center text-gray-400 hover:bg-secondary hover:text-white transition-all duration-300">
-                            <i class="fab fa-whatsapp text-lg"></i>
+            <div class="text-center mb-16 observe-fade">
+                <div class="inline-flex items-center gap-2 bg-stone-100 px-5 py-2.5 rounded-full mb-6">
+                    <i class="fas fa-route text-primary text-sm"></i>
+                    <span class="text-dark font-bold tracking-widest text-xs uppercase">Grand Tours</span>
+                </div>
+                <h2 class="display-font text-4xl lg:text-5xl font-bold text-dark mb-4">Flagship Journeys</h2>
+                <p class="text-gray-500 text-lg font-light max-w-2xl mx-auto">Multi-day odysseys through Morocco's most iconic landscapes — our most immersive experiences.</p>
+            </div>
+
+            <div class="space-y-10">
+                <!-- Tour 1: 5 Days -->
+                <div class="observe-fade feature-card bg-white rounded-3xl overflow-hidden shadow-xl border border-stone-100 flex flex-col lg:flex-row">
+                    <div class="relative overflow-hidden lg:w-[55%] h-72 lg:h-auto min-h-[320px]">
+                        <img src="images/rabat-maroc.jpg.1920x0_q85_format-jpg.jpg" alt="Fez Medina" class="feature-img w-full h-full object-cover transition-transform duration-1000">
+                        <div class="absolute inset-0 bg-gradient-to-r from-transparent via-transparent to-white/20 hidden lg:block"></div>
+                        <span class="absolute top-6 left-6 bg-primary text-white text-sm font-bold px-4 py-2 rounded-full tracking-wider uppercase shadow-lg">5 Days</span>
+                    </div>
+                    <div class="lg:w-[45%] p-8 lg:p-12 flex flex-col justify-center">
+                        <h3 class="display-font text-xl sm:text-2xl lg:text-3xl font-bold text-dark mb-4 leading-tight">Tangier → Rabat, Fez & Chefchaouen</h3>
+                        <p class="text-gray-600 leading-relaxed mb-6">A perfectly paced itinerary tracing Morocco's rich history through its monumental capital, its ancient spiritual heart, and the iconic Blue City.</p>
+                        <ul class="space-y-2 mb-8 text-sm text-gray-500">
+                            <li class="flex items-center gap-3"><i class="fas fa-check text-primary text-xs"></i> Private vehicle & expert guide throughout</li>
+                            <li class="flex items-center gap-3"><i class="fas fa-check text-primary text-xs"></i> Accommodation in premium riads</li>
+                            <li class="flex items-center gap-3"><i class="fas fa-check text-primary text-xs"></i> Guided medina walks & cultural immersion</li>
+                        </ul>
+                        <a href="order.html" class="inline-flex items-center justify-center py-4 px-8 rounded-full bg-dark hover:bg-primary text-white font-bold text-sm tracking-wider uppercase transition-all duration-300 shadow-lg hover:shadow-primary/30 w-fit group/btn">
+                            Plan This Journey <i class="fas fa-arrow-right ml-3 text-xs transition-transform group-hover/btn:translate-x-1"></i>
                         </a>
                     </div>
                 </div>
 
-                <!-- Quick Links -->
+                <!-- Tour 2: 8 Days Imperial -->
+                <div class="observe-fade feature-card bg-white rounded-3xl overflow-hidden shadow-xl border border-stone-100 flex flex-col lg:flex-row-reverse">
+                    <div class="relative overflow-hidden lg:w-[55%] h-72 lg:h-auto min-h-[320px]">
+                        <img src="images/IMG-20240325-WA0016.jpg" alt="Marrakech" class="feature-img w-full h-full object-cover transition-transform duration-1000">
+                        <span class="absolute top-6 right-6 bg-primary text-white text-sm font-bold px-4 py-2 rounded-full tracking-wider uppercase shadow-lg">8 Days</span>
+                    </div>
+                    <div class="lg:w-[45%] p-8 lg:p-12 flex flex-col justify-center">
+                        <span class="text-primary font-bold text-xs tracking-[0.2em] uppercase mb-2">Most Popular</span>
+                        <h3 class="display-font text-xl sm:text-2xl lg:text-3xl font-bold text-dark mb-4 leading-tight">Imperial Cities Tour</h3>
+                        <p class="text-gray-600 leading-relaxed mb-6">The definitive Moroccan deep dive. Experience the grandeur and vibrant souks of Marrakech, Fes, Meknes, and Rabat.</p>
+                        <ul class="space-y-2 mb-8 text-sm text-gray-500">
+                            <li class="flex items-center gap-3"><i class="fas fa-check text-primary text-xs"></i> All 4 Imperial Cities covered</li>
+                            <li class="flex items-center gap-3"><i class="fas fa-check text-primary text-xs"></i> Luxury accommodation & dining</li>
+                            <li class="flex items-center gap-3"><i class="fas fa-check text-primary text-xs"></i> Private chauffeur & local guides</li>
+                        </ul>
+                        <a href="order.html" class="inline-flex items-center justify-center py-4 px-8 rounded-full bg-dark hover:bg-primary text-white font-bold text-sm tracking-wider uppercase transition-all duration-300 shadow-lg hover:shadow-primary/30 w-fit group/btn">
+                            Plan This Journey <i class="fas fa-arrow-right ml-3 text-xs transition-transform group-hover/btn:translate-x-1"></i>
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Tour 3: 8 Days Desert -->
+                <div class="observe-fade feature-card bg-white rounded-3xl overflow-hidden shadow-xl border border-stone-100 flex flex-col lg:flex-row">
+                    <div class="relative overflow-hidden lg:w-[55%] h-72 lg:h-auto min-h-[320px]">
+                        <img src="images/IMG-20240325-WA0013.jpg" alt="Sahara Desert" class="feature-img w-full h-full object-cover transition-transform duration-1000">
+                        <span class="absolute top-6 left-6 bg-primary text-white text-sm font-bold px-4 py-2 rounded-full tracking-wider uppercase shadow-lg">8 Days</span>
+                    </div>
+                    <div class="lg:w-[45%] p-8 lg:p-12 flex flex-col justify-center">
+                        <span class="text-primary font-bold text-xs tracking-[0.2em] uppercase mb-2">Signature Experience</span>
+                        <h3 class="display-font text-xl sm:text-2xl lg:text-3xl font-bold text-dark mb-4 leading-tight">Morocco Desert Tour</h3>
+                        <p class="text-gray-600 leading-relaxed mb-6">Cross the mighty Atlas Mountains into the sprawling Sahara. Sleep under the darkest, star-filled skies in our luxury desert camps.</p>
+                        <ul class="space-y-2 mb-8 text-sm text-gray-500">
+                            <li class="flex items-center gap-3"><i class="fas fa-check text-primary text-xs"></i> Luxury Sahara camp overnight</li>
+                            <li class="flex items-center gap-3"><i class="fas fa-check text-primary text-xs"></i> Camel trek & sunset experience</li>
+                            <li class="flex items-center gap-3"><i class="fas fa-check text-primary text-xs"></i> Atlas Mountain scenic crossings</li>
+                        </ul>
+                        <a href="order.html" class="inline-flex items-center justify-center py-4 px-8 rounded-full bg-dark hover:bg-primary text-white font-bold text-sm tracking-wider uppercase transition-all duration-300 shadow-lg hover:shadow-primary/30 w-fit group/btn">
+                            Plan This Journey <i class="fas fa-arrow-right ml-3 text-xs transition-transform group-hover/btn:translate-x-1"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ============ SECTION 3: VIP TRANSFERS ============ -->
+    <section id="vip-transfers" class="py-20 lg:py-28 bg-stone-50 relative overflow-hidden">
+        <div class="absolute bottom-0 left-0 w-96 h-96 bg-secondary/5 rounded-full blur-3xl translate-y-1/2 -translate-x-1/3"></div>
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+            <div class="text-center mb-16 observe-fade">
+                <div class="inline-flex items-center gap-2 bg-white px-5 py-2.5 rounded-full mb-6 shadow-sm border border-stone-100">
+                    <i class="fas fa-star text-primary text-sm"></i>
+                    <span class="text-dark font-bold tracking-widest text-xs uppercase">VIP Transfers & Services</span>
+                </div>
+                <h2 class="display-font text-4xl lg:text-5xl font-bold text-dark mb-4">Seamless Connections</h2>
+                <p class="text-gray-500 text-lg font-light max-w-2xl mx-auto">Private, punctual, and luxurious point-to-point transfers across Morocco.</p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6 stagger-children">
+                <!-- Transfer 1 -->
+                <div class="observe-fade route-card bg-white rounded-2xl p-6 border border-stone-100 hover:border-primary/30 hover:shadow-xl transition-all duration-300 flex items-center gap-6 cursor-pointer group" onclick="window.location='order.html'">
+                    <div class="flex-shrink-0 w-14 h-14 rounded-2xl bg-stone-50 flex items-center justify-center text-primary border border-stone-100 group-hover:bg-primary group-hover:text-white transition-all">
+                        <i class="fas fa-car-side text-xl"></i>
+                    </div>
+                    <div class="flex-grow min-w-0">
+                        <div class="flex items-center gap-2 mb-1">
+                            <span class="font-bold text-dark">Tangier</span>
+                            <i class="fas fa-arrow-right text-primary text-xs route-arrow"></i>
+                            <span class="font-bold text-dark">Chefchaouen</span>
+                        </div>
+                        <div class="flex items-center gap-3 text-xs text-gray-400 font-medium">
+                            <span><i class="far fa-clock mr-1"></i>~2.5 hrs</span>
+                            <span>•</span>
+                            <span>Private Transfer</span>
+                        </div>
+                    </div>
+                    <i class="fas fa-chevron-right text-stone-300 group-hover:text-primary transition-colors"></i>
+                </div>
+
+                <!-- Transfer 2 -->
+                <div class="observe-fade route-card bg-white rounded-2xl p-6 border border-stone-100 hover:border-primary/30 hover:shadow-xl transition-all duration-300 flex items-center gap-6 cursor-pointer group" onclick="window.location='order.html'">
+                    <div class="flex-shrink-0 w-14 h-14 rounded-2xl bg-stone-50 flex items-center justify-center text-primary border border-stone-100 group-hover:bg-primary group-hover:text-white transition-all">
+                        <i class="fas fa-car-side text-xl"></i>
+                    </div>
+                    <div class="flex-grow min-w-0">
+                        <div class="flex items-center gap-2 mb-1">
+                            <span class="font-bold text-dark">Tangier</span>
+                            <i class="fas fa-arrow-right text-primary text-xs route-arrow"></i>
+                            <span class="font-bold text-dark">Casablanca</span>
+                        </div>
+                        <div class="flex items-center gap-3 text-xs text-gray-400 font-medium">
+                            <span><i class="far fa-clock mr-1"></i>~3.5 hrs</span>
+                            <span>•</span>
+                            <span>Private Transfer</span>
+                        </div>
+                    </div>
+                    <i class="fas fa-chevron-right text-stone-300 group-hover:text-primary transition-colors"></i>
+                </div>
+
+                <!-- Transfer 3 -->
+                <div class="observe-fade route-card bg-white rounded-2xl p-6 border border-stone-100 hover:border-primary/30 hover:shadow-xl transition-all duration-300 flex items-center gap-6 cursor-pointer group" onclick="window.location='order.html'">
+                    <div class="flex-shrink-0 w-14 h-14 rounded-2xl bg-stone-50 flex items-center justify-center text-primary border border-stone-100 group-hover:bg-primary group-hover:text-white transition-all">
+                        <i class="fas fa-route text-xl"></i>
+                    </div>
+                    <div class="flex-grow min-w-0">
+                        <div class="flex items-center gap-2 mb-1">
+                            <span class="font-bold text-dark">Tangier</span>
+                            <i class="fas fa-arrow-right text-primary text-xs route-arrow"></i>
+                            <span class="font-bold text-dark">Fez</span>
+                            <span class="block sm:inline text-xs text-gray-400 font-medium sm:ml-1 mt-1 sm:mt-0">(via Chefchaouen)</span>
+                        </div>
+                        <div class="flex items-center gap-3 text-xs text-gray-400 font-medium">
+                            <span><i class="far fa-clock mr-1"></i>~5 hrs</span>
+                            <span>•</span>
+                            <span>Scenic Route</span>
+                        </div>
+                    </div>
+                    <i class="fas fa-chevron-right text-stone-300 group-hover:text-primary transition-colors"></i>
+                </div>
+
+                <!-- Transfer 4: Airport -->
+                <div class="observe-fade route-card bg-dark rounded-2xl p-6 border border-stone-700 hover:border-primary/50 hover:shadow-xl hover:shadow-primary/10 transition-all duration-300 flex items-center gap-6 cursor-pointer group" onclick="window.location='order.html'">
+                    <div class="flex-shrink-0 w-14 h-14 rounded-2xl bg-white/10 flex items-center justify-center text-primary border border-white/10 group-hover:bg-primary group-hover:text-white transition-all">
+                        <i class="fas fa-plane-arrival text-xl"></i>
+                    </div>
+                    <div class="flex-grow min-w-0">
+                        <div class="flex items-center gap-2 mb-1">
+                            <span class="font-bold text-white">Airport & Port VIP Pickups</span>
+                        </div>
+                        <div class="flex items-center gap-3 text-xs text-gray-400 font-medium">
+                            <span><i class="fas fa-shield-alt mr-1"></i>Meet & Greet</span>
+                            <span>•</span>
+                            <span>24/7 Available</span>
+                        </div>
+                    </div>
+                    <i class="fas fa-chevron-right text-gray-600 group-hover:text-primary transition-colors"></i>
+                </div>
+
+                <!-- Transfer 5: Vehicle Rentals -->
+                <div class="observe-fade route-card bg-dark rounded-2xl p-6 border border-stone-700 hover:border-primary/50 hover:shadow-xl hover:shadow-primary/10 transition-all duration-300 flex items-center gap-6 cursor-pointer group md:col-span-2 max-w-xl mx-auto w-full" onclick="window.location='about.html'">
+                    <div class="flex-shrink-0 w-14 h-14 rounded-2xl bg-white/10 flex items-center justify-center text-primary border border-white/10 group-hover:bg-primary group-hover:text-white transition-all">
+                        <i class="fas fa-car text-xl"></i>
+                    </div>
+                    <div class="flex-grow min-w-0">
+                        <div class="flex items-center gap-2 mb-1">
+                            <span class="font-bold text-white">Premium Vehicle Rentals</span>
+                        </div>
+                        <div class="flex items-center gap-3 text-xs text-gray-400 font-medium">
+                            <span><i class="fas fa-gem mr-1"></i>Sedans, SUVs, Minivans & Coaches</span>
+                        </div>
+                    </div>
+                    <i class="fas fa-chevron-right text-gray-600 group-hover:text-primary transition-colors"></i>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Break -->
+    <section class="relative py-24 bg-fixed bg-center bg-cover" style="background-image:url('images/wizard_bg.png');">
+        <div class="absolute inset-0 bg-dark/75 backdrop-blur-[2px]"></div>
+        <div class="relative z-10 text-center max-w-3xl mx-auto px-4 observe-fade">
+            <h2 class="display-font text-3xl md:text-5xl font-bold text-white mb-6 leading-tight">Can't find what you're looking for?</h2>
+            <p class="text-xl text-gray-300 mb-10 font-light">We specialize in crafting bespoke, tailor-made itineraries designed entirely around your vision.</p>
+            <a href="order.html" class="inline-block bg-primary hover:bg-primaryHover text-white font-bold px-10 py-5 rounded-full transition-all duration-300 hover:-translate-y-1 shadow-xl hover:shadow-primary/40 text-lg uppercase tracking-wider">
+                Build a Custom Trip <i class="fas fa-magic ml-3"></i>
+            </a>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-dark text-gray-400 py-16 border-t border-stone-800">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-12 mb-12">
+                <div class="md:col-span-2">
+                    <a href="index.html" class="display-font text-3xl font-bold text-white tracking-wider block mb-4">AMEZIANE <span class="text-primary">TOURS</span></a>
+                    <p class="text-gray-400 mb-6 max-w-sm leading-relaxed">Curators of premium Moroccan travel experiences. We specialize in authentic cultural immersion, guided excursions, and tailor-made journeys across the Kingdom.</p>
+                    <div class="flex space-x-4">
+                        <a href="#" class="w-10 h-10 rounded-full bg-stone-800 flex items-center justify-center text-gray-400 hover:bg-secondary hover:text-white transition-all duration-300"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#" class="w-10 h-10 rounded-full bg-stone-800 flex items-center justify-center text-gray-400 hover:bg-secondary hover:text-white transition-all duration-300"><i class="fab fa-instagram"></i></a>
+                        <a href="#" class="w-10 h-10 rounded-full bg-stone-800 flex items-center justify-center text-gray-400 hover:bg-secondary hover:text-white transition-all duration-300"><i class="fab fa-twitter"></i></a>
+                        <a href="#" class="w-10 h-10 rounded-full bg-stone-800 flex items-center justify-center text-gray-400 hover:bg-secondary hover:text-white transition-all duration-300"><i class="fab fa-whatsapp text-lg"></i></a>
+                    </div>
+                </div>
                 <div>
                     <h4 class="text-white font-bold mb-6 tracking-wider uppercase">Quick Links</h4>
                     <ul class="space-y-3">
@@ -402,8 +562,6 @@
                         <li><a href="index.html#contact" class="hover:text-primary transition-colors flex items-center"><i class="fas fa-angle-right mr-2 text-xs"></i> Contact</a></li>
                     </ul>
                 </div>
-
-                <!-- Services -->
                 <div>
                     <h4 class="text-white font-bold mb-6 tracking-wider uppercase">Services</h4>
                     <ul class="space-y-3">
@@ -414,7 +572,6 @@
                     </ul>
                 </div>
             </div>
-
             <div class="border-t border-stone-800 pt-8 flex flex-col md:flex-row justify-between items-center text-sm text-gray-500">
                 <p>&copy; 2026 AMEZIANE TOURS. All rights reserved.</p>
                 <div class="space-x-6 mt-4 md:mt-0">
@@ -425,47 +582,56 @@
         </div>
     </footer>
 
-    <!-- Minimal Vanilla JS -->
     <script>
         document.addEventListener('DOMContentLoaded', () => {
-            // Mobile Menu Toggle
+            // Mobile Menu
             const btn = document.getElementById('mobile-menu-btn');
             const menu = document.getElementById('mobile-menu');
             const links = document.querySelectorAll('.mobile-link');
             const icon = btn.querySelector('i');
-
             function toggleMenu() {
-                if (menu.classList.contains('hidden')) {
-                    menu.classList.remove('hidden');
-                    icon.classList.remove('fa-bars');
-                    icon.classList.add('fa-times');
-                } else {
-                    menu.classList.add('hidden');
-                    icon.classList.remove('fa-times');
-                    icon.classList.add('fa-bars');
-                }
+                menu.classList.toggle('hidden');
+                icon.classList.toggle('fa-bars');
+                icon.classList.toggle('fa-times');
             }
-
             btn.addEventListener('click', toggleMenu);
+            links.forEach(l => l.addEventListener('click', () => { if (!menu.classList.contains('hidden')) toggleMenu(); }));
 
-            links.forEach(link => {
-                link.addEventListener('click', () => {
-                    if (!menu.classList.contains('hidden')) {
-                        toggleMenu();
+            // Navbar scroll
+            const navbar = document.getElementById('navbar');
+            window.addEventListener('scroll', () => {
+                if (window.scrollY > 20) { navbar.classList.add('shadow-md','bg-white'); navbar.classList.remove('bg-white/95'); }
+                else { navbar.classList.remove('shadow-md','bg-white'); navbar.classList.add('bg-white/95','shadow-sm'); }
+            });
+
+            // Intersection Observer for fade-in
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('is-visible'); observer.unobserve(e.target); } });
+            }, { threshold: 0.1, rootMargin: '0px 0px -50px 0px' });
+            document.querySelectorAll('.observe-fade').forEach(el => observer.observe(el));
+
+            // Filter pills - smooth scroll
+            const pills = document.querySelectorAll('.filter-pill');
+            const sections = ['day-trips','grand-tours','vip-transfers'].map(id => document.getElementById(id));
+            pills.forEach(pill => {
+                pill.addEventListener('click', () => {
+                    const target = document.getElementById(pill.getAttribute('data-target'));
+                    if (target) {
+                        const offset = document.getElementById('filter-bar').offsetHeight + navbar.offsetHeight + 16;
+                        window.scrollTo({ top: target.offsetTop - offset, behavior: 'smooth' });
                     }
                 });
             });
 
-            // Navbar Transition on Scroll
-            const navbar = document.getElementById('navbar');
+            // Scroll spy for pills
             window.addEventListener('scroll', () => {
-                if (window.scrollY > 20) {
-                    navbar.classList.add('shadow-md', 'bg-white');
-                    navbar.classList.remove('bg-white/95');
-                } else {
-                    navbar.classList.remove('shadow-md', 'bg-white');
-                    navbar.classList.add('bg-white/95', 'shadow-sm');
-                }
+                const offset = navbar.offsetHeight + 120;
+                let active = 'day-trips';
+                sections.forEach(s => { if (s && window.scrollY >= s.offsetTop - offset) active = s.id; });
+                pills.forEach(p => {
+                    p.classList.toggle('active', p.getAttribute('data-target') === active);
+                    p.classList.toggle('text-gray-500', p.getAttribute('data-target') !== active);
+                });
             });
         });
     </script>
